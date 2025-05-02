@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmCardModule } from '@spartan-ng/ui-card-helm';
+
+import { AuthenticationFormComponent } from './form/form.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: 'app-auth',
-    imports: [],
-    templateUrl: './auth.component.html',
-    styleUrl: './auth.component.css'
+	selector: 'spartan-authentication',
+	imports: [AuthenticationFormComponent, HlmButtonDirective, RouterOutlet],
+	templateUrl: './auth.component.html',
 })
-export class AuthComponent {
-
-}
+export class AuthComponent { }
