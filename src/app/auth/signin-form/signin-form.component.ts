@@ -6,17 +6,20 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { toast } from 'ngx-sonner';
+import { HlmToasterComponent } from "../../../../libs/ui/ui-sonner-helm/src/lib/hlm-toaster.component";
 
 @Component({
     selector: 'auth-signin-form',
     imports: [
-        HlmButtonDirective,
-        NgIcon,
-        HlmIconDirective,
-        HlmInputDirective,
-        FormsModule,
-        HlmLabelDirective,
-    ],
+    HlmButtonDirective,
+    NgIcon,
+    HlmIconDirective,
+    HlmInputDirective,
+    FormsModule,
+    HlmLabelDirective,
+    HlmToasterComponent
+],
     host: {
         class: 'block',
     },
@@ -29,5 +32,22 @@ export class SigninFormComponent {
     send() {
         this.isLoading.set(true);
         setTimeout(() => this.isLoading.set(false), 3000);
+    }
+
+    showToast(messageHeader: string, messageBody: string) {
+        toast(messageHeader, {
+            description: messageBody,
+            duration: 3000,
+            action: {
+                label: 'Close',
+                onClick: () => {
+                toast.dismiss();
+                },
+            },
+            style: {
+                backgroundColor: '#1e293b',
+                color: '#ffffff',
+            },
+        })
     }
 }
