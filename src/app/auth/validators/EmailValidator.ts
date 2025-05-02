@@ -13,11 +13,11 @@ export class InvalidEmailException extends Error {
 }
 
 export class EmailValidator {
-    validate(email: string): void {
+    validate(email: string): boolean {
         if (this.isEmpty(email)) {
             throw new EmptyEmailException();
         }
-        this.isValid(email); // Call the isValid method to validate email format
+        return this.isValid(email); // Call the isValid method to validate email format
     }
 
     isEmpty(email: string): boolean {
