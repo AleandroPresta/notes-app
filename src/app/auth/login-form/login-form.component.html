@@ -5,7 +5,7 @@
 	</div>
 	<div class="grid gap-6">
 		<form (ngSubmit)="send()">
-			<label hlmLabel class="sr-only" for="email">Email</label>
+			<label hlmLabel class="ml-1" for="email">Email</label>
 			<input
 				hlmInput
 				class="w-full"
@@ -16,10 +16,10 @@
 				autocomplete="off"
 			/>
 
-            <label hlmLabel class="sr-only" for="password">Password</label>
+            <label hlmLabel class="ml-1 mt-2" for="password">Password</label>
 			<input
 				hlmInput
-				class="w-full mt-2"
+				class="w-full"
 				placeholder="Password"
 				type="password"
 				id="password"
@@ -33,7 +33,7 @@
 				@if (isLoading()) {
 					<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
 				}
-				Sign In with Email
+				Login
 			</button>
 		</form>
 	</div>

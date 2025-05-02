@@ -6,8 +6,6 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { toast } from 'ngx-sonner';
-import { HlmToasterComponent } from "../../../../libs/ui/ui-sonner-helm/src/lib/hlm-toaster.component";
 
 @Component({
     selector: 'auth-login-form',
@@ -18,7 +16,6 @@ import { HlmToasterComponent } from "../../../../libs/ui/ui-sonner-helm/src/lib/
     HlmInputDirective,
     FormsModule,
     HlmLabelDirective,
-    HlmToasterComponent
 ],
     host: {
         class: 'block',
