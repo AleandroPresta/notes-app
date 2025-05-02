@@ -24,24 +24,26 @@
 					<p class="text-lg">
 						The application that helps you create and save notes in the cloud
 					</p>
-					<footer class="text-sm">Powered by Spartan</footer>
+					<footer class="text-sm">Powered by <a href="https://www.spartan.ng/" class="class=hover:text-primary cursor-pointer underline underline-offset-4" >Spartan</a></footer>
 				</blockquote>
 			</div>
 		</div>
 		<div class="lg:p-8">
 			<hlm-tabs tab="signin" class="w-full">
-				<hlm-tabs-list class="w-full grid grid-cols-2 mb-14" aria-label="">
-					<button hlmTabsTrigger="signin">SignIn</button>
-					<button hlmTabsTrigger="login">Login</button>
-				</hlm-tabs-list>
+			  <hlm-tabs-list class="w-full grid grid-cols-2 mb-14" aria-label="">
+				<button hlmTabsTrigger="signin">SignIn</button>
+				<button hlmTabsTrigger="login">Login</button>
+			  </hlm-tabs-list>
+			  <div class="min-h-[400px]">
 				<div hlmTabsContent="signin">
-					<auth-signin-form></auth-signin-form>
+				  <auth-signin-form></auth-signin-form>
 				</div>
 				<div hlmTabsContent="login">
-					<auth-login-form></auth-login-form>
+				  <auth-login-form></auth-login-form>
 				</div>
+			  </div>
 			</hlm-tabs>
-		</div>
+		  </div>
 	</div>
 </div>
 
