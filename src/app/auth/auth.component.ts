@@ -3,6 +3,7 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmCardModule } from '@spartan-ng/ui-card-helm';
 
 import { SigninFormComponent } from './signin-form/signin-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 import { RouterOutlet } from '@angular/router';
 
 import {
@@ -16,7 +17,7 @@ import {
 	selector: 'spartan-authentication',
 	imports: [
 		SigninFormComponent, 
-		HlmButtonDirective, 
+		LoginFormComponent, 
 		RouterOutlet,
 		HlmTabsComponent,
         HlmTabsListComponent,
