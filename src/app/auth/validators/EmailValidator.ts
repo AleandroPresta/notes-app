@@ -13,18 +13,18 @@ export class InvalidEmailException extends Error {
 }
 
 export class EmailValidator {
-    validate(email: string): boolean {
+    static isValid(email: string): boolean {
         if (this.isEmpty(email)) {
             throw new EmptyEmailException();
         }
-        return this.isValid(email); // Call the isValid method to validate email format
+        return this.isValidFormat(email); // Call the isValid method to validate email format
     }
 
-    isEmpty(email: string): boolean {
+    static isEmpty(email: string): boolean {
         return !email || email.trim() === '';
     }
 
-    isValid(email: string): boolean {
+    static isValidFormat(email: string): boolean {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return emailRegex.test(email)
             ? true

@@ -5,44 +5,38 @@ import {
 } from './EmailValidator';
 
 describe('EmailValidator', () => {
-    let validator: EmailValidator;
-
-    beforeEach(() => {
-        validator = new EmailValidator();
-    });
-
     it('should throw an exception when the email is empty', () => {
         const emptyEmail: string = '';
         expect(() => {
-            validator.validate(emptyEmail);
+            EmailValidator.isValid(emptyEmail);
         }).toThrowError(EmptyEmailException);
     });
 
     it('should throw an exception when the input lacks a @ symbol', () => {
         const invalidEmail: string = 'invalidemail.com';
         expect(() => {
-            validator.validate(invalidEmail);
+            EmailValidator.isValid(invalidEmail);
         }).toThrowError(InvalidEmailException);
     });
 
     it('should throw an exception when the input lacks a domain', () => {
         const invalidEmail: string = 'invalidemail@';
         expect(() => {
-            validator.validate(invalidEmail);
+            EmailValidator.isValid(invalidEmail);
         }).toThrowError(InvalidEmailException);
     });
 
     it('should throw an exception when the input lacks a username', () => {
         const invalidEmail: string = '@domain.com';
         expect(() => {
-            validator.validate(invalidEmail);
+            EmailValidator.isValid(invalidEmail);
         }).toThrowError(InvalidEmailException);
     });
 
     it('should throw an exception when the input lacks a top-level domain', () => {
         const invalidEmail: string = 'invalidemail@domain';
         expect(() => {
-            validator.validate(invalidEmail);
+            EmailValidator.isValid(invalidEmail);
         }).toThrowError(InvalidEmailException);
     });
 
@@ -56,7 +50,7 @@ describe('EmailValidator', () => {
         ];
 
         validEmails.forEach((email) => {
-            expect(validator.validate(email)).toBe(true);
+            expect(EmailValidator.isValid(email)).toBe(true);
         });
     });
 
@@ -68,7 +62,7 @@ describe('EmailValidator', () => {
 
         invalidEmails.forEach((email) => {
             expect(() => {
-                validator.validate(email);
+                EmailValidator.isValid(email);
             }).toThrowError(InvalidEmailException);
         });
     });
@@ -76,24 +70,24 @@ describe('EmailValidator', () => {
     it('should throw an exception when email has multiple @ symbols', () => {
         const invalidEmail = 'user@name@domain.com';
         expect(() => {
-            validator.validate(invalidEmail);
+            EmailValidator.isValid(invalidEmail);
         }).toThrowError(InvalidEmailException);
     });
 
     it('should throw an exception when email contains only whitespace', () => {
         const invalidEmail = '   ';
         expect(() => {
-            validator.validate(invalidEmail);
+            EmailValidator.isValid(invalidEmail);
         }).toThrowError(EmptyEmailException);
     });
 
     it('should throw an exception for null or undefined emails', () => {
         expect(() => {
-            validator.validate(null as unknown as string);
+            EmailValidator.isValid(null as unknown as string);
         }).toThrowError(EmptyEmailException);
 
         expect(() => {
-            validator.validate(undefined as unknown as string);
+            EmailValidator.isValid(undefined as unknown as string);
         }).toThrowError(EmptyEmailException);
     });
 });
