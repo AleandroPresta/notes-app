@@ -5,7 +5,7 @@
 	</div>
 	<div class="grid gap-6">
 		<form (ngSubmit)="send()">
-			<label hlmLabel class="sr-only" for="email">Email</label>
+			<label hlmLabel class="ml-1" for="email">Email</label>
 			<input
 				hlmInput
 				class="w-full"
@@ -15,7 +15,12 @@
 				placeholder="name@example.com"
 				autocomplete="off"
 			/>
-			<button hlmBtn [disabled]="isLoading()" class="mt-2 w-full" type="submit">
+
+			<hlm-toaster />
+			<button 
+			hlmBtn 
+			(click)="showToast('Error', 'Functionality not yet implemented!')" 
+			[disabled]="isLoading()" class="mt-2 w-full" type="submit">
 				@if (isLoading()) {
 					<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
 				}
@@ -28,7 +33,13 @@
 				<span class="bg-background text-muted-foreground px-2">Or continue with</span>
 			</div>
 		</div>
-		<button hlmBtn variant="outline" [disabled]="isLoading()">
+
+		<hlm-toaster />
+		<button
+		(click)="showToast('Error', 'Functionality not yet implemented!')"  
+		hlmBtn 
+		variant="outline" 
+		[disabled]="isLoading()">
 			@if (isLoading()) {
 				<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
 			} @else {

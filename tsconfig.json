@@ -39,6 +39,15 @@
       ],
       "@spartan-ng/ui-card-helm": [
         "./libs/ui/ui-card-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-sonner-helm": [
+        "./libs/ui/ui-sonner-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-menu-helm": [
+        "./libs/ui/ui-menu-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-tabs-helm": [
+        "./libs/ui/ui-tabs-helm/src/index.ts"
       ]
     }
   },
