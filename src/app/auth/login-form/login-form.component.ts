@@ -20,6 +20,11 @@ import {
     InvalidEmailException,
 } from '../validators/EmailValidator';
 import { NgIf } from '@angular/common';
+import {
+    EmptyPasswordException,
+    InvalidPasswordException,
+    PasswordValidator,
+} from '../validators/PasswordValidator';
 
 @Component({
     selector: 'auth-login-form',
@@ -82,6 +87,23 @@ export class LoginFormComponent implements OnInit {
                 return;
             } else {
                 emailControl?.setErrors({ genericError: true });
+                return;
+            }
+        }
+
+        // Check if the password is valid
+        const passwordControl = this.loginForm.get('userPassword');
+        try {
+            PasswordValidator.isValid(passwordControl?.value);
+        } catch (error) {
+            if (error instanceof InvalidPasswordException) {
+                passwordControl?.setErrors({ invalidPassword: true });
+                return;
+            } else if (error instanceof EmptyPasswordException) {
+                passwordControl?.setErrors({ required: true });
+                return;
+            } else {
+                passwordControl?.setErrors({ genericError: true });
                 return;
             }
         }

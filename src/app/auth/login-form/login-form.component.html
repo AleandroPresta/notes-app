@@ -42,7 +42,15 @@
                     autocomplete="off"
                     formControlName="userPassword"
                 />
-                <hlm-error>Your password is required</hlm-error>
+                <hlm-error>
+                    @if (loginForm.get('userPassword')?.hasError('required')) {
+                    Password is required } @else if
+                    (loginForm.get('userPassword')?.hasError('invalidPassword'))
+                    { Please enter a valid password address } @else if
+                    (loginForm.get('userPassword')?.hasError('genericError')) {
+                    An error occurred while validating your password } @else {
+                    Password is invalid }
+                </hlm-error>
             </hlm-form-field>
             <button
                 hlmBtn
