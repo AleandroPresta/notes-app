@@ -1,40 +1,72 @@
 <div class="mx-auto w-full justify-center space-y-6 sm:w-[350px]">
-	<div class="space-y-2 text-center">
-		<h1 class="text-2xl font-semibold tracking-tight">Login</h1>
-		<p class="text-muted-foreground text-sm">Enter your email and password to log in</p>
-	</div>
-	<div class="grid gap-6">
-		<form (ngSubmit)="send()">
-			<label hlmLabel class="ml-1" for="email">Email</label>
-			<input
-				hlmInput
-				class="w-full"
-				placeholder="Email"
-				type="email"
-				id="email"
-				placeholder="name@example.com"
-				autocomplete="off"
-			/>
+    <div class="space-y-2 text-center">
+        <h1 class="text-2xl font-semibold tracking-tight">Login</h1>
+        <p class="text-muted-foreground text-sm">
+            Enter your email and password to login
+        </p>
+    </div>
+    <div class="grid gap-6">
+        <form [formGroup]="loginForm" (ngSubmit)="send()">
+            <hlm-form-field>
+                <label hlmLabel class="ml-1" for="email">Email</label>
+                <input
+                    hlmInput
+                    class="w-full"
+                    type="email"
+                    id="email"
+                    placeholder="name@example.com"
+                    autocomplete="off"
+                    formControlName="userEmail"
+                />
+                <hlm-error>
+                    @if (loginForm.get('userEmail')?.hasError('required')) {
+                    Email is required } @else if
+                    (loginForm.get('userEmail')?.hasError('invalidEmail')) {
+                    Please enter a valid email address } @else if
+                    (loginForm.get('userEmail')?.hasError('genericError')) { An
+                    error occurred while validating your email } @else { Email
+                    is invalid }
+                </hlm-error>
+            </hlm-form-field>
 
-            <label hlmLabel class="ml-1 mt-2" for="password">Password</label>
-			<input
-				hlmInput
-				class="w-full"
-				placeholder="Password"
-				type="password"
-				id="password"
-				placeholder="*********"
-				autocomplete="off"
-			/>
-
-			<button 
-			hlmBtn
-			[disabled]="isLoading()" class="mt-2 w-full" type="submit">
-				@if (isLoading()) {
-					<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
-				}
-				Login
-			</button>
-		</form>
-	</div>
+            <hlm-form-field>
+                <label hlmLabel class="ml-1 mt-2" for="password"
+                    >Password</label
+                >
+                <input
+                    hlmInput
+                    class="w-full"
+                    type="password"
+                    id="password"
+                    placeholder="*********"
+                    autocomplete="off"
+                    formControlName="userPassword"
+                />
+                <hlm-error>
+                    @if (loginForm.get('userPassword')?.hasError('required')) {
+                    Password is required } @else if
+                    (loginForm.get('userPassword')?.hasError('invalidPassword'))
+                    { Please enter a valid password } @else if
+                    (loginForm.get('userPassword')?.hasError('genericError')) {
+                    An error occurred while validating your password } @else {
+                    Password is invalid }
+                </hlm-error>
+            </hlm-form-field>
+            <button
+                hlmBtn
+                [disabled]="isLoading()"
+                class="mt-2 w-full"
+                type="submit"
+            >
+                @if (isLoading()) {
+                <ng-icon
+                    hlm
+                    name="lucideLoaderCircle"
+                    size="sm"
+                    class="mr-2 animate-spin"
+                />
+                } Login
+            </button>
+        </form>
+    </div>
 </div>
