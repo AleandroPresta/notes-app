@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-auth',
-    imports: [],
+    imports: [
+    ],
     templateUrl: './auth.component.html',
     styleUrl: './auth.component.css'
 })
