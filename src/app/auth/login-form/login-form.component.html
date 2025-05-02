@@ -46,7 +46,7 @@
                     @if (loginForm.get('userPassword')?.hasError('required')) {
                     Password is required } @else if
                     (loginForm.get('userPassword')?.hasError('invalidPassword'))
-                    { Please enter a valid password address } @else if
+                    { Please enter a valid password } @else if
                     (loginForm.get('userPassword')?.hasError('genericError')) {
                     An error occurred while validating your password } @else {
                     Password is invalid }
