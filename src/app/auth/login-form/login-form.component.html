@@ -18,7 +18,15 @@
                     autocomplete="off"
                     formControlName="userEmail"
                 />
-                <hlm-error>Your email is required</hlm-error>
+                <hlm-error>
+                    @if (loginForm.get('userEmail')?.hasError('required')) {
+                    Email is required } @else if
+                    (loginForm.get('userEmail')?.hasError('invalidEmail')) {
+                    Please enter a valid email address } @else if
+                    (loginForm.get('userEmail')?.hasError('genericError')) { An
+                    error occurred while validating your email } @else { Email
+                    is invalid }
+                </hlm-error>
             </hlm-form-field>
 
             <hlm-form-field>

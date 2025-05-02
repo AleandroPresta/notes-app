@@ -14,7 +14,12 @@ import {
     ErrorStateMatcher,
     ShowOnDirtyErrorStateMatcher,
 } from '@spartan-ng/brain/forms';
-import { EmailValidator } from '../validators/EmailValidator';
+import {
+    EmailValidator,
+    EmptyEmailException,
+    InvalidEmailException,
+} from '../validators/EmailValidator';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'auth-login-form',
@@ -29,6 +34,7 @@ import { EmailValidator } from '../validators/EmailValidator';
         ReactiveFormsModule,
         HlmFormFieldModule,
         HlmInputDirective,
+        NgIf,
     ],
     host: {
         class: 'block',
@@ -56,18 +62,28 @@ export class LoginFormComponent implements OnInit {
     send() {
         if (this.loginForm.invalid) {
             // Mark all fields as touched to show errors
-            Object.keys(this.loginForm.controls).forEach((field) => {
+            /*Object.keys(this.loginForm.controls).forEach((field) => {
                 const control = this.loginForm.get(field);
                 control?.markAsTouched({ onlySelf: true });
             });
-            return;
+            return; */
         }
 
         // Check if the email is valid
         const emailControl = this.loginForm.get('userEmail');
-        if (!EmailValidator.isValid(emailControl?.value)) {
-            emailControl?.setErrors({ invalidEmail: true });
-            return;
+        try {
+            EmailValidator.isValid(emailControl?.value);
+        } catch (error) {
+            if (error instanceof InvalidEmailException) {
+                emailControl?.setErrors({ invalidEmail: true });
+                return;
+            } else if (error instanceof EmptyEmailException) {
+                emailControl?.setErrors({ required: true });
+                return;
+            } else {
+                emailControl?.setErrors({ genericError: true });
+                return;
+            }
         }
 
         this.isLoading.set(true);
