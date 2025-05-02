@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:notes-app": "node dist/notes-app/server/server.mjs"
+    "serve:ssr:notes-app": "node dist/notes-app/server/server.mjs",
+    "format": "prettier --write \"src/**/*.{ts,js,html,css}\""
   },
   "private": true,
   "dependencies": {
