@@ -39,7 +39,6 @@ import {
         ReactiveFormsModule,
         HlmFormFieldModule,
         HlmInputDirective,
-        NgIf,
     ],
     host: {
         class: 'block',
