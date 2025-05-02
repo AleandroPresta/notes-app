@@ -9,7 +9,7 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'auth-example-form',
+  selector: 'auth-form',
   imports: [HlmButtonDirective, NgIcon, HlmIconDirective, HlmInputDirective, FormsModule, HlmLabelDirective],
   host: {
     class: 'block',
