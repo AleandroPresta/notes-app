@@ -1,0 +1,155 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.8.1",
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": ".editorconfig",
+        "hash": "6686520031028425313"
+      },
+      {
+        "file": ".github/workflows/ci-cd.yml",
+        "hash": "9249733970309909358"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "18168400278403753650"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "5331566439708925252"
+      },
+      {
+        "file": ".vscode/launch.json",
+        "hash": "17038929134016848735"
+      },
+      {
+        "file": ".vscode/tasks.json",
+        "hash": "5336636969995539451"
+      },
+      {
+        "file": "LICENSE",
+        "hash": "12649885980860800067"
+      },
+      {
+        "file": "README.md",
+        "hash": "3559845051239834423"
+      },
+      {
+        "file": "angular.json",
+        "hash": "2134768481757221309"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "12734176859909645503"
+      },
+      {
+        "file": "package.json",
+        "hash": "3679324834463799779"
+      },
+      {
+        "file": "public/favicon.ico",
+        "hash": "3988961587069885523"
+      },
+      {
+        "file": "server.ts",
+        "hash": "2091903596738193527"
+      },
+      {
+        "file": "src/app/app.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/app.component.html",
+        "hash": "4785078480033370488"
+      },
+      {
+        "file": "src/app/app.component.spec.ts",
+        "hash": "1911006548508199586"
+      },
+      {
+        "file": "src/app/app.component.ts",
+        "hash": "5121055274088120917"
+      },
+      {
+        "file": "src/app/app.config.server.ts",
+        "hash": "14750464052796800194"
+      },
+      {
+        "file": "src/app/app.config.ts",
+        "hash": "6318051909506589375"
+      },
+      {
+        "file": "src/app/app.routes.ts",
+        "hash": "12397496131277534773"
+      },
+      {
+        "file": "src/app/auth/auth.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/auth/auth.component.html",
+        "hash": "9454873126651798027"
+      },
+      {
+        "file": "src/app/auth/auth.component.spec.ts",
+        "hash": "12064739634870047423"
+      },
+      {
+        "file": "src/app/auth/auth.component.ts",
+        "hash": "4974785318429915876"
+      },
+      {
+        "file": "src/app/auth/form/form.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/auth/form/form.component.html",
+        "hash": "1750631962607696709"
+      },
+      {
+        "file": "src/app/auth/form/form.component.spec.ts",
+        "hash": "7065521467370594443"
+      },
+      {
+        "file": "src/app/auth/form/form.component.ts",
+        "hash": "14343924779704451874"
+      },
+      {
+        "file": "src/index.html",
+        "hash": "1557095650654645089"
+      },
+      {
+        "file": "src/main.server.ts",
+        "hash": "11653607448136507287"
+      },
+      {
+        "file": "src/main.ts",
+        "hash": "4927504514031276065"
+      },
+      {
+        "file": "src/styles.css",
+        "hash": "11827223589103615267"
+      },
+      {
+        "file": "tailwind.config.js",
+        "hash": "3704688455506618343"
+      },
+      {
+        "file": "tsconfig.app.json",
+        "hash": "7541409410423088479"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "823159237449296042"
+      },
+      {
+        "file": "tsconfig.spec.json",
+        "hash": "8918301549046766373"
+      }
+    ]
+  }
+}
