@@ -38,23 +38,23 @@ jobs:
       - name: Check build output
         run: ls -la
 
-      ## Check the build output structure
-      #- name: Check build output before moving
-      #  run: ls -la dist/
-#
-## Move content from browser directory to dist/notes-app
-#- name: Move browser content to dist
-#  run: |
-#    mkdir -p dist/notes-app
-#    cp -r dist/browser/* dist/notes-app/
-#
-## Verify the final structure
-#- name: Check final build output
-#  run: ls -la dist/notes-app/
-#
-## Deploy using the simplified command
-#- name: Deploy to GitHub Pages
-#  run: |
-#    git config --global user.name "GitHub Actions Bot"
-#    git config --global user.email "github-actions[bot]@users.noreply.github.com"
-#    npx angular-cli-ghpages --dir=dist/notes-app
+      # Check the build output structure
+      - name: Check build output before moving
+        run: ls -la dist/
+
+      ## Move content from browser directory to dist/notes-app
+      #- name: Move browser content to dist
+      #  run: |
+      #    mkdir -p dist/notes-app
+      #    cp -r dist/browser/* dist/notes-app/
+      #
+      ## Verify the final structure
+      #- name: Check final build output
+      #  run: ls -la dist/notes-app/
+      #
+      ## Deploy using the simplified command
+      #- name: Deploy to GitHub Pages
+      #  run: |
+      #    git config --global user.name "GitHub Actions Bot"
+      #    git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      #    npx angular-cli-ghpages --dir=dist/notes-app
