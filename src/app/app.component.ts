@@ -15,14 +15,10 @@ export class AppComponent {
     title = 'notes-app';
 
     componentToShow = 'auth';
-    loginFailed: boolean = false;
 
     constructor(private loginService: LoginService) {}
 
-    handleUserAuthentication(userData: { email: string; password: string }) {
+    handleUserAuthentication(userEmail: string) {
         // Manage login success or failure
-        this.loginService.login(userData.email, userData.password)
-            ? (this.componentToShow = 'notes')
-            : ((this.loginFailed = true), console.log('Login failed in app'));
     }
 }

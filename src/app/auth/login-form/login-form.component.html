@@ -53,6 +53,13 @@
                 </hlm-error>
             </hlm-form-field>
 
+            <hlm-error
+                class="ml-1 mt-2"
+                *ngIf="loginForm.hasError('invalidCredentials')"
+            >
+                Wrong email or password
+            </hlm-error>
+
             <button
                 hlmBtn
                 [disabled]="isLoading()"

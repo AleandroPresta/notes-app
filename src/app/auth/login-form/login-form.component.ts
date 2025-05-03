@@ -34,12 +34,14 @@ import {
     InvalidPasswordException,
     PasswordValidator,
 } from '../validators/PasswordValidator';
+import { LoginService } from './login.service';
 
 @Component({
     selector: 'auth-login-form',
     imports: [
         HlmButtonDirective,
         NgIcon,
+        NgIf,
         HlmIconDirective,
         HlmInputDirective,
         FormsModule,
@@ -64,19 +66,36 @@ import {
 export class LoginFormComponent implements OnInit {
     public isLoading = signal(false);
     loginForm: FormGroup;
-    @Output() loginSubmitted = new EventEmitter<{
-        email: string;
-        password: string;
-    }>();
+    @Output() loginSuccessful = new EventEmitter<string>();
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private loginService: LoginService) {
         this.loginForm = this.fb.group({
             userEmail: ['', Validators.required],
             userPassword: ['', Validators.required],
         });
     }
 
-    send() {
+    send(): void {
+        if (this.isEmailValid() && this.isPasswordValid()) {
+            this.isLoading.set(true);
+
+            if (this.loginIsSuccessful()) {
+                // Emit the event with user data
+                this.loginSuccessful.emit(
+                    this.loginForm.get('userEmail')?.value
+                );
+            } else {
+                // Handle login failure
+                this.loginForm.setErrors({ invalidCredentials: true });
+            }
+
+            this.isLoading.set(false);
+        }
+    }
+
+    ngOnInit(): void {}
+
+    isEmailValid(): boolean {
         // Check if the email is valid
         const emailControl = this.loginForm.get('userEmail');
         try {
@@ -84,16 +103,19 @@ export class LoginFormComponent implements OnInit {
         } catch (error) {
             if (error instanceof InvalidEmailException) {
                 emailControl?.setErrors({ invalidEmail: true });
-                return;
+                return false;
             } else if (error instanceof EmptyEmailException) {
                 emailControl?.setErrors({ required: true });
-                return;
+                return false;
             } else {
                 emailControl?.setErrors({ genericError: true });
-                return;
+                return false;
             }
         }
+        return true;
+    }
 
+    isPasswordValid(): boolean {
         // Check if the password is valid
         const passwordControl = this.loginForm.get('userPassword');
         try {
@@ -101,26 +123,22 @@ export class LoginFormComponent implements OnInit {
         } catch (error) {
             if (error instanceof InvalidPasswordException) {
                 passwordControl?.setErrors({ invalidPassword: true });
-                return;
+                return false;
             } else if (error instanceof EmptyPasswordException) {
                 passwordControl?.setErrors({ required: true });
-                return;
+                return false;
             } else {
                 passwordControl?.setErrors({ genericError: true });
-                return;
+                return false;
             }
         }
-
-        this.isLoading.set(true);
-
-        // Emit the event with user data
-        this.loginSubmitted.emit({
-            email: this.loginForm.get('userEmail')?.value,
-            password: this.loginForm.get('userPassword')?.value,
-        });
-
-        this.isLoading.set(false);
+        return true;
     }
 
-    ngOnInit(): void {}
+    loginIsSuccessful(): boolean {
+        return this.loginService.login(
+            this.loginForm.get('userEmail')?.value,
+            this.loginForm.get('userPassword')?.value
+        );
+    }
 }

@@ -28,12 +28,9 @@ import e from 'express';
     templateUrl: './auth.component.html',
 })
 export class AuthComponent {
-    @Output() loginSubmitted = new EventEmitter<{
-        email: string;
-        password: string;
-    }>();
+    @Output() loginSuccessful = new EventEmitter<string>();
 
-    handleLoginEvent(userData: { email: string; password: string }) {
-        this.loginSubmitted.emit(userData);
+    handleLoginEvent(userEmail: string) {
+        this.loginSuccessful.emit(userEmail);
     }
 }
