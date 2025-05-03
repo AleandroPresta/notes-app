@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmCardModule } from '@spartan-ng/ui-card-helm';
 

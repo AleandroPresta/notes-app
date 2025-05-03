@@ -15,6 +15,7 @@ export class AppComponent {
     title = 'notes-app';
 
     componentToShow = 'auth';
+    loginFailed: boolean = false;
 
     constructor(private loginService: LoginService) {}
 
@@ -22,6 +23,6 @@ export class AppComponent {
         // Manage login success or failure
         this.loginService.login(userData.email, userData.password)
             ? (this.componentToShow = 'notes')
-            : console.log('Login failed');
+            : ((this.loginFailed = true), console.log('Login failed in app'));
     }
 }

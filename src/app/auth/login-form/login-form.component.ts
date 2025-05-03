@@ -1,4 +1,13 @@
-import { Component, signal, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    signal,
+    OnInit,
+    Output,
+    EventEmitter,
+    Input,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideLoaderCircle } from '@ng-icons/lucide';
@@ -110,7 +119,7 @@ export class LoginFormComponent implements OnInit {
             password: this.loginForm.get('userPassword')?.value,
         });
 
-        setTimeout(() => this.isLoading.set(false), 3000);
+        this.isLoading.set(false);
     }
 
     ngOnInit(): void {}
