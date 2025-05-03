@@ -32,4 +32,7 @@ jobs:
         run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/notes-app/browser
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          npx angular-cli-ghpages --dir=dist/notes-app/browser --name="GitHub Actions Bot" --email="github-actions[bot]@users.noreply.github.com" --no-silent --repo="https://x-access-token:${{ github.token }}@github.com/AleandroPresta/notes-app.git"
