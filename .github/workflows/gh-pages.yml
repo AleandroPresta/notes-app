@@ -32,4 +32,4 @@ jobs:
         run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/notes-app
+        run: npx angular-cli-ghpages --dir=dist/notes-app/browser
