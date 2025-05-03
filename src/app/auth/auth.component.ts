@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmCardModule } from '@spartan-ng/ui-card-helm';
 
@@ -12,18 +12,28 @@ import {
     HlmTabsListComponent,
     HlmTabsTriggerDirective,
 } from '@spartan-ng/ui-tabs-helm';
+import e from 'express';
 
 @Component({
-	selector: 'spartan-authentication',
-	imports: [
-		SigninFormComponent, 
-		LoginFormComponent, 
-		RouterOutlet,
-		HlmTabsComponent,
+    selector: 'spartan-authentication',
+    imports: [
+        SigninFormComponent,
+        LoginFormComponent,
+        RouterOutlet,
+        HlmTabsComponent,
         HlmTabsListComponent,
         HlmTabsTriggerDirective,
         HlmTabsContentDirective,
-	],
-	templateUrl: './auth.component.html',
+    ],
+    templateUrl: './auth.component.html',
 })
-export class AuthComponent { }
+export class AuthComponent {
+    @Output() loginSubmitted = new EventEmitter<{
+        email: string;
+        password: string;
+    }>();
+
+    handleLoginEvent(userData: { email: string; password: string }) {
+        this.loginSubmitted.emit(userData);
+    }
+}

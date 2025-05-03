@@ -14,4 +14,9 @@ export class AppComponent {
     title = 'notes-app';
 
     componentToShow = 'auth';
+
+    handleUserAuthentication(userData: { email: string; password: string }) {
+        console.log('User authenticated:', userData);
+        // Perform any additional actions after authentication
+    }
 }
