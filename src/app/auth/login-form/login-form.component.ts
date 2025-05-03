@@ -64,15 +64,6 @@ export class LoginFormComponent implements OnInit {
     }
 
     send() {
-        if (this.loginForm.invalid) {
-            // Mark all fields as touched to show errors
-            /*Object.keys(this.loginForm.controls).forEach((field) => {
-                const control = this.loginForm.get(field);
-                control?.markAsTouched({ onlySelf: true });
-            });
-            return; */
-        }
-
         // Check if the email is valid
         const emailControl = this.loginForm.get('userEmail');
         try {
