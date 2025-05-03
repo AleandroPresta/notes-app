@@ -17,8 +17,11 @@ describe('LoginFormComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ReactiveFormsModule],
-            declarations: [LoginFormComponent],
+            imports: [
+                // Import the standalone component instead of declaring it
+                LoginFormComponent,
+                ReactiveFormsModule,
+            ],
             providers: [{ provide: LoginService, useValue: loginServiceMock }],
         }).compileComponents();
 
