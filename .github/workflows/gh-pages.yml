@@ -33,21 +33,25 @@ jobs:
         run: npm install -g angular-cli-ghpages
 
       - name: Build
-        run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
+        run: ng build --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
-      # Add a step to verify the output directory structure
-      - name: Check build output
+      # Check the build output structure
+      - name: Check build output before moving
+        run: ls -la dist/
+
+      # Move content from browser directory to dist/notes-app
+      - name: Move browser content to dist
+        run: |
+          mkdir -p dist/notes-app
+          cp -r dist/browser/* dist/notes-app/
+
+      # Verify the final structure
+      - name: Check final build output
         run: ls -la dist/notes-app/
 
-      - name: Move to dist
-        run: |
-          cd dist/notes-app
-          mv dist/browser/* dist/notes-app/
-          rm -rf dist/browser
-
-      # Updated deployment step with the correct browser directory
+      # Deploy using the simplified command
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          npx angular-cli-ghpages --dir=dist/notes-app/ --name="GitHub Actions Bot" --email="github-actions[bot]@users.noreply.github.com" --no-silent --repo="https://x-access-token:${{ github.token }}@github.com/AleandroPresta/notes-app.git"
+          npx angular-cli-ghpages --dir=dist/notes-app
