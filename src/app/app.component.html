@@ -3,4 +3,7 @@
     (loginSuccessful)="handleSuccessfulLoginEvent($event)"
 ></spartan-authentication>
 
-<h1 *ngIf="componentToShow == 'notes'">Welcome</h1>
+<spartan-notes
+    [userEmail]="userEmail"
+    *ngIf="componentToShow == 'notes'"
+></spartan-notes>
