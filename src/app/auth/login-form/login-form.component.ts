@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideLoaderCircle } from '@ng-icons/lucide';
@@ -55,6 +55,10 @@ import {
 export class LoginFormComponent implements OnInit {
     public isLoading = signal(false);
     loginForm: FormGroup;
+    @Output() loginSubmitted = new EventEmitter<{
+        email: string;
+        password: string;
+    }>();
 
     constructor(private fb: FormBuilder) {
         this.loginForm = this.fb.group({
@@ -100,8 +104,8 @@ export class LoginFormComponent implements OnInit {
 
         this.isLoading.set(true);
 
-        console.log('Login as:');
-        console.table({
+        // Emit the event with user data
+        this.loginSubmitted.emit({
             email: this.loginForm.get('userEmail')?.value,
             password: this.loginForm.get('userPassword')?.value,
         });
