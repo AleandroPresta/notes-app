@@ -46,9 +46,9 @@ jobs:
       - name: Check notes-app directory structure
         run: ls -la dist/notes-app/
 
-      # Deploy using the simplified command - no need for file copying
-      # - name: Deploy to GitHub Pages
-      #   run: |
-      #     git config --global user.name "GitHub Actions Bot"
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      #     npx angular-cli-ghpages --dir=dist/notes-app
+      # Deploy using angular-cli-ghpages
+      - name: Deploy to GitHub Pages
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          npx angular-cli-ghpages --dir=dist/notes-app --no-silent
