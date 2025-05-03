@@ -1,1 +1,5 @@
-<spartan-authentication></spartan-authentication>
+<spartan-authentication
+    *ngIf="componentToShow == 'auth'"
+></spartan-authentication>
+
+<h1 *ngIf="componentToShow == 'notes'">Welcome</h1>
