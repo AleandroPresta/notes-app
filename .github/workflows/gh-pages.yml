@@ -37,11 +37,17 @@ jobs:
 
       # Add a step to verify the output directory structure
       - name: Check build output
-        run: ls -la dist/notes-app/browser
+        run: ls -la dist/notes-app/
+
+      - name: Move to dist
+        run: |
+          cd dist/notes-app
+          mv dist/browser/* dist/notes-app/
+          rm -rf dist/browser
 
       # Updated deployment step with the correct browser directory
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          npx angular-cli-ghpages --dir=dist/notes-app/browser --name="GitHub Actions Bot" --email="github-actions[bot]@users.noreply.github.com" --no-silent --repo="https://x-access-token:${{ github.token }}@github.com/AleandroPresta/notes-app.git"
+          npx angular-cli-ghpages --dir=dist/notes-app/ --name="GitHub Actions Bot" --email="github-actions[bot]@users.noreply.github.com" --no-silent --repo="https://x-access-token:${{ github.token }}@github.com/AleandroPresta/notes-app.git"
