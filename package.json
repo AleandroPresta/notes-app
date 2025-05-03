@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:notes-app": "node dist/notes-app/server/server.mjs",
-    "format": "prettier --write \"src/**/*.{ts,js,html,css}\""
+    "format": "prettier --write \"src/**/*.{ts,js,html,css}\"",
+    "deploy:gh-pages": "ng build --configuration production --base-href=/notes-app/"
   },
   "private": true,
   "dependencies": {
