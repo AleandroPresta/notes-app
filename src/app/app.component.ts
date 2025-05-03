@@ -18,7 +18,9 @@ export class AppComponent {
 
     constructor(private loginService: LoginService) {}
 
-    handleUserAuthentication(userEmail: string) {
+    handleSuccessfulLoginEvent(userEmail: string) {
         // Manage login success or failure
+        console.log('Login successful for user:', userEmail);
+        this.componentToShow = 'notes';
     }
 }

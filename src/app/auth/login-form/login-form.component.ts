@@ -5,8 +5,6 @@ import {
     Output,
     EventEmitter,
     Input,
-    OnChanges,
-    SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -66,7 +64,12 @@ import { LoginService } from './login.service';
 export class LoginFormComponent implements OnInit {
     public isLoading = signal(false);
     loginForm: FormGroup;
-    @Output() loginSuccessful = new EventEmitter<string>();
+    @Output() loginSubmitted = new EventEmitter<{
+        email: string;
+        password: string;
+    }>();
+    @Output() loginSuccess = new EventEmitter<string>();
+    @Input() loginFailed: boolean = false;
 
     constructor(private fb: FormBuilder, private loginService: LoginService) {
         this.loginForm = this.fb.group({
@@ -76,20 +79,39 @@ export class LoginFormComponent implements OnInit {
     }
 
     send(): void {
+        // Reset all form errors at the beginning of each submission
+        this.loginForm.markAsPristine();
+        this.loginForm.markAsUntouched();
+        const emailControl = this.loginForm.get('userEmail');
+        const passwordControl = this.loginForm.get('userPassword');
+
+        if (emailControl) emailControl.setErrors(null);
+        if (passwordControl) passwordControl.setErrors(null);
+
         if (this.isEmailValid() && this.isPasswordValid()) {
             this.isLoading.set(true);
 
-            if (this.loginIsSuccessful()) {
-                // Emit the event with user data
-                this.loginSuccessful.emit(
-                    this.loginForm.get('userEmail')?.value
-                );
-            } else {
-                // Handle login failure
-                this.loginForm.setErrors({ invalidCredentials: true });
-            }
+            // Try to login with the service
+            const email = this.loginForm.get('userEmail')?.value;
+            const password = this.loginForm.get('userPassword')?.value;
 
-            this.isLoading.set(false);
+            try {
+                const loginResult = this.loginService.login(email, password);
+
+                if (loginResult) {
+                    // If login is successful, emit success event with the email
+                    this.loginSuccess.emit(email);
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                const passwordControl = this.loginForm.get('userPassword');
+                if (passwordControl) {
+                    passwordControl.markAsTouched();
+                    passwordControl.setErrors({ genericError: true });
+                }
+            } finally {
+                this.isLoading.set(false);
+            }
         }
     }
 

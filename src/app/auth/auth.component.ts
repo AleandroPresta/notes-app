@@ -30,7 +30,7 @@ import e from 'express';
 export class AuthComponent {
     @Output() loginSuccessful = new EventEmitter<string>();
 
-    handleLoginEvent(userEmail: string) {
+    handleSuccessfulLoginEvent(userEmail: string) {
         this.loginSuccessful.emit(userEmail);
     }
 }

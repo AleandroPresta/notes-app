@@ -1,5 +1,6 @@
 <spartan-authentication
     *ngIf="componentToShow == 'auth'"
+    (loginSuccessful)="handleSuccessfulLoginEvent($event)"
 ></spartan-authentication>
 
 <h1 *ngIf="componentToShow == 'notes'">Welcome</h1>
