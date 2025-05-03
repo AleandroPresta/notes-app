@@ -29,10 +29,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build -- --configuration production --base-href="/notes-app/"
+        run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/notes-app/browser
+        run: npx angular-cli-ghpages --dir=dist/notes-app
