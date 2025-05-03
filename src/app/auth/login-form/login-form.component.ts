@@ -33,6 +33,7 @@ import {
     PasswordValidator,
 } from '../validators/PasswordValidator';
 import { LoginService } from './login.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'auth-login-form',
@@ -90,17 +91,24 @@ export class LoginFormComponent implements OnInit {
             const email = this.loginForm.get('userEmail')?.value;
             const password = this.loginForm.get('userPassword')?.value;
 
-            const loginResult = this.loginService.login(email, password);
-
-            if (loginResult) {
-                // If login is successful, emit success event with the email
-                this.loginSuccess.emit(email);
-                console.log('Login successful:', email);
-            } else {
-                this.loginForm?.setErrors({ invalidCredentials: true });
-            }
-
-            this.isLoading.set(false);
+            // Subscribe to the Observable returned by loginIsSuccessful
+            this.loginIsSuccessful(email, password).subscribe({
+                next: (isSuccessful) => {
+                    if (isSuccessful) {
+                        // If login is successful, emit success event with the email
+                        this.loginSuccess.emit(email);
+                        console.log('Login successful:', email);
+                    } else {
+                        this.loginForm?.setErrors({ invalidCredentials: true });
+                    }
+                    this.isLoading.set(false);
+                },
+                error: (error) => {
+                    console.error('Login error:', error);
+                    this.loginForm?.setErrors({ invalidCredentials: true });
+                    this.isLoading.set(false);
+                },
+            });
         }
     }
 
@@ -146,10 +154,7 @@ export class LoginFormComponent implements OnInit {
         return true;
     }
 
-    loginIsSuccessful(): boolean {
-        return this.loginService.login(
-            this.loginForm.get('userEmail')?.value,
-            this.loginForm.get('userPassword')?.value
-        );
+    loginIsSuccessful(email: string, password: string): Observable<boolean> {
+        return this.loginService.login(email, password);
     }
 }
