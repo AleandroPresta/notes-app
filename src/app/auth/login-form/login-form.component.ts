@@ -64,12 +64,7 @@ import { LoginService } from './login.service';
 export class LoginFormComponent implements OnInit {
     public isLoading = signal(false);
     loginForm: FormGroup;
-    @Output() loginSubmitted = new EventEmitter<{
-        email: string;
-        password: string;
-    }>();
     @Output() loginSuccess = new EventEmitter<string>();
-    @Input() loginFailed: boolean = false;
 
     constructor(private fb: FormBuilder, private loginService: LoginService) {
         this.loginForm = this.fb.group({
@@ -95,23 +90,17 @@ export class LoginFormComponent implements OnInit {
             const email = this.loginForm.get('userEmail')?.value;
             const password = this.loginForm.get('userPassword')?.value;
 
-            try {
-                const loginResult = this.loginService.login(email, password);
+            const loginResult = this.loginService.login(email, password);
 
-                if (loginResult) {
-                    // If login is successful, emit success event with the email
-                    this.loginSuccess.emit(email);
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                const passwordControl = this.loginForm.get('userPassword');
-                if (passwordControl) {
-                    passwordControl.markAsTouched();
-                    passwordControl.setErrors({ genericError: true });
-                }
-            } finally {
-                this.isLoading.set(false);
+            if (loginResult) {
+                // If login is successful, emit success event with the email
+                this.loginSuccess.emit(email);
+                console.log('Login successful:', email);
+            } else {
+                this.loginForm?.setErrors({ invalidCredentials: true });
             }
+
+            this.isLoading.set(false);
         }
     }
 
