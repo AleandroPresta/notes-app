@@ -28,9 +28,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Install angular-cli-ghpages globally
+      - name: Install angular-cli-ghpages
+        run: npm install -g angular-cli-ghpages
+
       - name: Build
         run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
+      # Add a step to verify the output directory structure
+      - name: Check build output
+        run: ls -la dist/notes-app/browser
+
+      # Updated deployment step with the correct browser directory
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "GitHub Actions Bot"
