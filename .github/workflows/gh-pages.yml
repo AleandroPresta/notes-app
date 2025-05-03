@@ -33,7 +33,7 @@ jobs:
         run: npm install -g angular-cli-ghpages
 
       - name: Build
-        run: ng build --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
+        run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
       # Check the build output structure
       - name: Check build output before moving
