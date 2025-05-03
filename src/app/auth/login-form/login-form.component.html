@@ -48,10 +48,17 @@
                     (loginForm.get('userPassword')?.hasError('invalidPassword'))
                     { Please enter a valid password } @else if
                     (loginForm.get('userPassword')?.hasError('genericError')) {
-                    An error occurred while validating your password } @else {
-                    Password is invalid }
+                    An error occurred while validating your password }
                 </hlm-error>
             </hlm-form-field>
+
+            <hlm-error
+                class="ml-1 mt-2"
+                *ngIf="loginForm.hasError('invalidCredentials')"
+            >
+                Wrong email or password
+            </hlm-error>
+
             <button
                 hlmBtn
                 [disabled]="isLoading()"

@@ -1,4 +1,11 @@
-import { Component, signal, OnInit } from '@angular/core';
+import {
+    Component,
+    signal,
+    OnInit,
+    Output,
+    EventEmitter,
+    Input,
+} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideLoaderCircle } from '@ng-icons/lucide';
@@ -25,12 +32,14 @@ import {
     InvalidPasswordException,
     PasswordValidator,
 } from '../validators/PasswordValidator';
+import { LoginService } from './login.service';
 
 @Component({
     selector: 'auth-login-form',
     imports: [
         HlmButtonDirective,
         NgIcon,
+        NgIf,
         HlmIconDirective,
         HlmInputDirective,
         FormsModule,
@@ -55,15 +64,49 @@ import {
 export class LoginFormComponent implements OnInit {
     public isLoading = signal(false);
     loginForm: FormGroup;
+    @Output() loginSuccess = new EventEmitter<string>();
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private loginService: LoginService) {
         this.loginForm = this.fb.group({
             userEmail: ['', Validators.required],
             userPassword: ['', Validators.required],
         });
     }
 
-    send() {
+    send(): void {
+        // Reset all form errors at the beginning of each submission
+        this.loginForm.markAsPristine();
+        this.loginForm.markAsUntouched();
+        const emailControl = this.loginForm.get('userEmail');
+        const passwordControl = this.loginForm.get('userPassword');
+
+        if (emailControl) emailControl.setErrors(null);
+        if (passwordControl) passwordControl.setErrors(null);
+
+        if (this.isEmailValid() && this.isPasswordValid()) {
+            this.isLoading.set(true);
+
+            // Try to login with the service
+            const email = this.loginForm.get('userEmail')?.value;
+            const password = this.loginForm.get('userPassword')?.value;
+
+            const loginResult = this.loginService.login(email, password);
+
+            if (loginResult) {
+                // If login is successful, emit success event with the email
+                this.loginSuccess.emit(email);
+                console.log('Login successful:', email);
+            } else {
+                this.loginForm?.setErrors({ invalidCredentials: true });
+            }
+
+            this.isLoading.set(false);
+        }
+    }
+
+    ngOnInit(): void {}
+
+    isEmailValid(): boolean {
         // Check if the email is valid
         const emailControl = this.loginForm.get('userEmail');
         try {
@@ -71,16 +114,19 @@ export class LoginFormComponent implements OnInit {
         } catch (error) {
             if (error instanceof InvalidEmailException) {
                 emailControl?.setErrors({ invalidEmail: true });
-                return;
+                return false;
             } else if (error instanceof EmptyEmailException) {
                 emailControl?.setErrors({ required: true });
-                return;
+                return false;
             } else {
                 emailControl?.setErrors({ genericError: true });
-                return;
+                return false;
             }
         }
+        return true;
+    }
 
+    isPasswordValid(): boolean {
         // Check if the password is valid
         const passwordControl = this.loginForm.get('userPassword');
         try {
@@ -88,26 +134,22 @@ export class LoginFormComponent implements OnInit {
         } catch (error) {
             if (error instanceof InvalidPasswordException) {
                 passwordControl?.setErrors({ invalidPassword: true });
-                return;
+                return false;
             } else if (error instanceof EmptyPasswordException) {
                 passwordControl?.setErrors({ required: true });
-                return;
+                return false;
             } else {
                 passwordControl?.setErrors({ genericError: true });
-                return;
+                return false;
             }
         }
-
-        this.isLoading.set(true);
-
-        console.log('Login as:');
-        console.table({
-            email: this.loginForm.get('userEmail')?.value,
-            password: this.loginForm.get('userPassword')?.value,
-        });
-
-        setTimeout(() => this.isLoading.set(false), 3000);
+        return true;
     }
 
-    ngOnInit(): void {}
+    loginIsSuccessful(): boolean {
+        return this.loginService.login(
+            this.loginForm.get('userEmail')?.value,
+            this.loginForm.get('userPassword')?.value
+        );
+    }
 }
