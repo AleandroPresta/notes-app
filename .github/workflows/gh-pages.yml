@@ -25,20 +25,8 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Debug - Show workspace directory
-        run: |
-          pwd
-          ls -la
-
-      - name: Debug - Show git configuration
-        run: |
-          git config --list
-
       - name: Install dependencies
         run: npm ci
-
-      - name: Debug - Show package.json scripts
-        run: cat package.json | grep -A 20 '"scripts":'
 
       # Install angular-cli-ghpages globally
       - name: Install angular-cli-ghpages
@@ -47,54 +35,14 @@ jobs:
       - name: Build
         run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
-      - name: Debug - Show dist directory structure
+      - name: Check build output
+        run: ls -la dist/notes-app
+
+      # Deploy using angular-cli-ghpages
+      - name: Deploy to gh pages
         run: |
-          echo "==== Root dist directory ===="
-          ls -la dist/
+          npx angular-cli-ghpages --dir=dist/notes-app --no-silent
 
-          echo "==== Notes app directory ===="
-          ls -la dist/notes-app/ || echo "Directory not found"
-
-          echo "==== Browser directory (if exists) ===="
-          ls -la dist/notes-app/browser/ || echo "Browser directory not found"
-
-          echo "==== Server directory (if exists) ===="
-          ls -la dist/notes-app/server/ || echo "Server directory not found"
-
-      - name: Debug - Show angular.json build output paths
-        run: |
-          cat angular.json | grep -A 10 '"outputPath"' || echo "outputPath not found in angular.json"
-
-      # Attempt to move files if browser directory exists
-      - name: Move build output if needed
-        run: |
-          if [ -d "./dist/notes-app/browser" ]; then
-            echo "Moving files from browser directory"
-            mv ./dist/notes-app/browser/* ./dist/notes-app/ || echo "Error moving files"
-            rm -rf ./dist/notes-app/browser
-            echo "==== Updated notes-app directory ===="
-            ls -la dist/notes-app/
-          else
-            echo "No browser directory found, skipping move operation"
-          fi
-
-      # Debug environment variables and auth
-      - name: Debug - Check environment variables and GitHub context
-        env:
-          GITHUB_TOKEN_EXISTS: ${{ secrets.GITHUB_TOKEN != '' }}
-        run: |
-          echo "GitHub token exists: $GITHUB_TOKEN_EXISTS"
-          echo "GitHub repository: $GITHUB_REPOSITORY"
-          echo "GitHub actor: $GITHUB_ACTOR"
-
-      # Deploy using angular-cli-ghpages with verbose output
-      - name: Deploy to gh pages - Verbose
-        run: |
-          npx angular-cli-ghpages --dir=dist/notes-app --repo="https://github.com/${{ github.repository }}.git" --name="GitHub Actions Bot" --email="github-actions[bot]@users.noreply.github.com" --no-silent --dry-run
-
-          echo "==== Performing actual deployment ===="
-          npx angular-cli-ghpages --dir=dist/notes-app --repo="https://github.com/${{ github.repository }}.git" --name="GitHub Actions Bot" --email="github-actions[bot]@users.noreply.github.com" --no-silent
         env:
           CI: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
