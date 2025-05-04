@@ -25,6 +25,12 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
+      # Set git identity explicitly
+      - name: Set Git Identity
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Install dependencies
         run: npm ci
 
@@ -35,25 +41,38 @@ jobs:
       - name: Build
         run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
-      - name: Check build output
-        run: ls -la dist/
+      # Check the directory structure after build
+      - name: Check build output structure
+        run: |
+          echo "==== Output directory structure ===="
+          ls -la dist/
+          ls -la dist/notes-app/ || echo "Directory not found"
 
-      # Move the content of dist/notes-app/browser to dist/notes-app
-      - name: Move build output
-        run: mv ./dist/notes-app/browser/* ./dist/notes-app/
-
-      # Remove the browser directory
-      - name: Remove browser directory
-        run: rm -rf ./dist/notes-app/browser
-
-      # Print the content of dist/notes-app
-      - name: Print build output
-        run: ls -la dist/notes-app
+      # Move files from browser directory to expected location
+      - name: Prepare files for deployment
+        run: |
+          if [ -d "./dist/notes-app/browser" ]; then
+            echo "Moving files from browser directory"
+            cp -r ./dist/notes-app/browser/* ./dist/notes-app/
+            # Create a 404.html page before deployment if it doesn't exist
+            if [ -f "./dist/notes-app/index.html" ]; then
+              echo "Creating 404.html from index.html"
+              cp ./dist/notes-app/index.html ./dist/notes-app/404.html
+            fi
+            echo "==== Updated dist/notes-app directory ===="
+            ls -la dist/notes-app/
+          else
+            echo "No browser directory found"
+          fi
 
       # Deploy using angular-cli-ghpages
-      - name: Deploy to gh pages
-        run: |
-          npx angular-cli-ghpages --dir=dist/notes-app
+      - name: Deploy to GitHub Pages
         env:
-          CI: true
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx angular-cli-ghpages \
+            --dir=dist/notes-app \
+            --repo="https://github.com/${{ github.repository }}.git" \
+            --name="GitHub Actions Bot" \
+            --email="github-actions[bot]@users.noreply.github.com" \
+            --no-silent
