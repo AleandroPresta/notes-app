@@ -33,6 +33,5 @@ describe('NotesComponent', () => {
 
     it('should get user id from service', () => {
         expect(mockNotesService.getUserId).toHaveBeenCalled();
-        expect(component.userId).toBe(123);
     });
 });

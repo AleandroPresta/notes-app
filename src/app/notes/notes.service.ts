@@ -13,11 +13,12 @@ export class NotesService {
     private http = inject(HttpClient);
     constructor() {}
 
-    API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:Y6FZ87f5`;
+    USER_API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:Y6FZ87f5`;
+    NOTES_API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:lJojGs4r`;
 
     getUserId(userToken: string): Observable<number> {
         return this.http
-            .get<AuthResponse>(`${this.API_URL}/auth/me`, {
+            .get<AuthResponse>(`${this.USER_API_URL}/auth/me`, {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },
@@ -33,6 +34,30 @@ export class NotesService {
                 catchError((error) => {
                     console.error('Error fetching user ID:', error);
                     return of(0); // Return -1 or any other default value
+                })
+            );
+    }
+
+    getNotesByUserId(userId: number): Observable<any[]> {
+        return this.http
+            .get<any[]>(`${this.NOTES_API_URL}/note?user_id=${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem(
+                        'auth_token'
+                    )}`,
+                },
+            })
+            .pipe(
+                map((response) => {
+                    if (response) {
+                        return response;
+                    } else {
+                        return [];
+                    }
+                }),
+                catchError((error) => {
+                    console.error('Error fetching notes:', error);
+                    return of([]); // Return an empty array on error
                 })
             );
     }

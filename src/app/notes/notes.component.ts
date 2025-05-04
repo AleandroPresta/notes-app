@@ -1,23 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { NotesService } from './notes.service';
+import { NgFor } from '@angular/common';
 
 @Component({
     selector: 'spartan-notes',
-    imports: [],
+    imports: [NgFor],
     templateUrl: './notes.component.html',
     styleUrl: './notes.component.css',
 })
 export class NotesComponent {
     @Input() userEmail: string = 'None';
-    userToken: string = '';
-    userId: number = 0;
+
+    notes: any[] = [];
 
     constructor(notesService: NotesService) {
-        this.userToken = localStorage.getItem('auth_token') || '';
+        const userToken: string = localStorage.getItem('auth_token') || '';
 
-        notesService.getUserId(this.userToken).subscribe((userId) => {
+        notesService.getUserId(userToken).subscribe((userId) => {
             if (userId) {
-                this.userId = userId;
+                notesService.getNotesByUserId(userId).subscribe((notes) => {
+                    this.notes = notes;
+                });
             } else {
                 console.error('No user ID found');
             }
