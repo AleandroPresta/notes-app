@@ -38,19 +38,22 @@ jobs:
       - name: Check build output
         run: ls -la dist/
 
-      # Check the browser directory structure (Angular SSR outputs to browser subdirectory)
-      - name: Check browser directory structure
-        run: ls -la dist/notes-app/browser/
+      # Move the content of dist/notes-app/browser to dist/notes-app
+      - name: Move build output
+        run: mv ./dist/notes-app/browser/* ./dist/notes-app/
+
+      # Remove the browser directory
+      - name: Remove browser directory
+        run: rm -rf ./dist/notes-app/browser
+
+      # Print the content of dist/notes-app
+      - name: Print build output
+        run: ls -la dist/notes-app
 
       # Deploy using angular-cli-ghpages
-      - name: Deploy to GitHub Pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to gh pages
         run: |
-          npx angular-cli-ghpages \
-            --dir=dist/notes-app/browser \
-            --repo="https://github.com/${{ github.repository }}.git" \
-            --name="GitHub Actions Bot" \
-            --email="github-actions[bot]@users.noreply.github.com" \
-            --branch=gh-pages \
-            --no-silent
+          npx angular-cli-ghpages --dir=dist/notes-app
+        env:
+          CI: true
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
