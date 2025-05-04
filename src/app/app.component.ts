@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
 import { AuthComponent } from './auth/auth.component';
 import { NgIf } from '@angular/common';
-import { LoginService } from './auth/login-form/login.service';
+import { NotesComponent } from './notes/notes.component';
 
 @Component({
     selector: 'app-root',
-    imports: [AuthComponent, NgIf],
+    imports: [AuthComponent, NgIf, NotesComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
 })
@@ -15,12 +14,13 @@ export class AppComponent {
     title = 'notes-app';
 
     componentToShow = 'auth';
+    userEmail = 'None';
 
-    constructor(private loginService: LoginService) {}
+    constructor() {}
 
     handleSuccessfulLoginEvent(userEmail: string) {
-        // Manage login success or failure
-        console.log('Login successful for user:', userEmail);
+        // Manage login success
         this.componentToShow = 'notes';
+        this.userEmail = userEmail;
     }
 }
