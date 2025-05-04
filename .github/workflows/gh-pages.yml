@@ -36,25 +36,21 @@ jobs:
         run: npm run build -- --configuration production --base-href "https://aleandropresta.github.io/notes-app/"
 
       - name: Check build output
-        run: ls -la
-
-      # Check the build output structure
-      - name: Check build output before moving
         run: ls -la dist/
 
-      # Examine the notes-app directory structure
-      - name: Check notes-app directory structure
-        run: ls -la dist/notes-app/
+      # Check the browser directory structure (Angular SSR outputs to browser subdirectory)
+      - name: Check browser directory structure
+        run: ls -la dist/notes-app/browser/
 
       # Deploy using angular-cli-ghpages
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           npx angular-cli-ghpages \
-            --dir=dist/notes-app \
-            --repo="https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" \
+            --dir=dist/notes-app/browser \
+            --repo="https://github.com/${{ github.repository }}.git" \
+            --name="GitHub Actions Bot" \
+            --email="github-actions[bot]@users.noreply.github.com" \
             --branch=gh-pages \
             --no-silent
