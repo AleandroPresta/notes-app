@@ -2,17 +2,18 @@ import { Component, Input } from '@angular/core';
 import { NotesService } from './notes.service';
 import { NgFor } from '@angular/common';
 import { NotesListComponent } from './notes-list/notes-list.component';
+import { Note } from './Notes';
 
 @Component({
     selector: 'spartan-notes',
-    imports: [NgFor, NotesListComponent],
+    imports: [NotesListComponent],
     templateUrl: './notes.component.html',
     styleUrl: './notes.component.css',
 })
 export class NotesComponent {
     @Input() userEmail: string = 'None';
 
-    notes: any[] = [];
+    notes: Note[] = [];
 
     constructor(notesService: NotesService) {
         this.notes = [
