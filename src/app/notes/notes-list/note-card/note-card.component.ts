@@ -39,6 +39,7 @@ import {
     HlmMenuItemCheckboxDirective,
     HlmMenuItemRadioDirective,
 } from '@spartan-ng/ui-menu-helm';
+import { SlicePipe } from '@angular/common';
 
 @Component({
     selector: 'spartan-note-card',
@@ -57,6 +58,7 @@ import {
         HlmMenuBarComponent,
         HlmMenuItemDirective,
         HlmMenuBarItemDirective,
+        SlicePipe,
     ],
     providers: [
         provideIcons({ lucideEllipsisVertical, lucideTrash2, lucidePen }),

@@ -20,7 +20,8 @@
     </div>
     <div hlmCardContent class="grid gap-4">
         <p class="text-sm text-muted-foreground">
-            {{ note.content }}
+            {{ note.content | slice : 0 : 200
+            }}{{ note.content.length > 200 ? "..." : "" }}
         </p>
     </div>
 </section>
