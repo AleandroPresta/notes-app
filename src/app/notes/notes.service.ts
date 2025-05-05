@@ -1,9 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, of, Observable } from 'rxjs';
+import { labelVariants } from '../../../libs/ui/ui-label-helm/src/lib/hlm-label.directive';
+import { UserInfo } from './UserInfo';
 
 interface AuthResponse {
     id?: number;
+    first_name?: string;
+    last_name?: string;
 }
 
 @Injectable({
@@ -16,7 +20,7 @@ export class NotesService {
     USER_API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:Y6FZ87f5`;
     NOTES_API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:lJojGs4r`;
 
-    getUserId(userToken: string): Observable<number> {
+    getUserInfo(userToken: string): Observable<UserInfo | null> {
         return this.http
             .get<AuthResponse>(`${this.USER_API_URL}/auth/me`, {
                 headers: {
@@ -25,15 +29,23 @@ export class NotesService {
             })
             .pipe(
                 map((response) => {
-                    if (response.id) {
-                        return response.id;
+                    if (
+                        response.id &&
+                        response.first_name &&
+                        response.last_name
+                    ) {
+                        return new UserInfo(
+                            response.id,
+                            response.first_name,
+                            response.last_name
+                        );
                     } else {
-                        return 0;
+                        return null;
                     }
                 }),
                 catchError((error) => {
                     console.error('Error fetching user ID:', error);
-                    return of(0); // Return -1 or any other default value
+                    return of(null);
                 })
             );
     }

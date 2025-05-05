@@ -15,9 +15,9 @@ import {
     styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-    @Input() userEmail: string = 'name@example.com';
-    @Input() userFirstName: string = 'A';
-    @Input() userLastName: string = 'B';
+    @Input() userEmail: string = '';
+    @Input() userFirstName: string = '';
+    @Input() userLastName: string = '';
 
     $targetEl: HTMLElement | null = document.getElementById('user-dropdown');
     $triggerEl: HTMLElement | null =
