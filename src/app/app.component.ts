@@ -13,7 +13,7 @@ import { NotesComponent } from './notes/notes.component';
 export class AppComponent {
     title = 'notes-app';
 
-    componentToShow = 'auth';
+    componentToShow = 'notes'; // Auth in production
     userEmail = 'None';
 
     constructor() {}

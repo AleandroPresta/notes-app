@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { NotesService } from './notes.service';
 import { NgFor } from '@angular/common';
+import { NotesListComponent } from './notes-list/notes-list.component';
 
 @Component({
     selector: 'spartan-notes',
-    imports: [NgFor],
+    imports: [NgFor, NotesListComponent],
     templateUrl: './notes.component.html',
     styleUrl: './notes.component.css',
 })
