@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { NotesService } from './notes.service';
-import { NgFor } from '@angular/common';
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { Note } from './Notes';
 
