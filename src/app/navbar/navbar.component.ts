@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Collapse } from 'flowbite';
+import {
+    Collapse,
+    CollapseInterface,
+    CollapseOptions,
+    InstanceOptions,
+} from 'flowbite';
 
 @Component({
     selector: 'app-navbar',
@@ -11,11 +16,14 @@ import { Collapse } from 'flowbite';
 })
 export class NavbarComponent {
     @Input() userEmail: string = 'name@example.com';
-    @Input() userName: string = 'User Name';
-    $targetEl = document.getElementById('user-dropdown');
-    $triggerEl = document.getElementById('user-menu-button');
+    @Input() userFirstName: string = 'A';
+    @Input() userLastName: string = 'B';
 
-    options = {
+    $targetEl: HTMLElement | null = document.getElementById('user-dropdown');
+    $triggerEl: HTMLElement | null =
+        document.getElementById('user-menu-button');
+
+    options: CollapseOptions = {
         onCollapse: () => {
             console.log('element has been collapsed');
         },
@@ -26,12 +34,12 @@ export class NavbarComponent {
             console.log('element has been toggled');
         },
     };
-    instanceOptions = {
+    instanceOptions: InstanceOptions = {
         id: 'targetEl',
         override: true,
     };
 
-    collapse = new Collapse(
+    collapse: CollapseInterface = new Collapse(
         this.$targetEl,
         this.$triggerEl,
         this.options,
