@@ -1,2 +1,5 @@
-<!-- TODO <div + @for> -->
-<spartan-note-card></spartan-note-card>
+<div>
+    @for (note of notes; track note.id) {
+    <spartan-note-card [note]="note"></spartan-note-card>
+    }
+</div>
