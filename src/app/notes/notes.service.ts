@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, of, Observable } from 'rxjs';
-import { labelVariants } from '../../../libs/ui/ui-label-helm/src/lib/hlm-label.directive';
 import { UserInfo } from './UserInfo';
 
 interface AuthResponse {

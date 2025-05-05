@@ -15,29 +15,12 @@ import {
     HlmCardTitleDirective,
 } from '@spartan-ng/ui-card-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-
-import { BrnTooltipContentDirective } from '@spartan-ng/brain/tooltip';
-import {
-    HlmTooltipComponent,
-    HlmTooltipTriggerDirective,
-} from '@spartan-ng/ui-tooltip-helm';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { HlmMenuComponent } from '@spartan-ng/ui-menu-helm';
 import {
     HlmMenuBarComponent,
-    HlmSubMenuComponent,
     HlmMenuItemDirective,
-    HlmMenuItemSubIndicatorComponent,
-    HlmMenuLabelComponent,
-    HlmMenuShortcutComponent,
-    HlmMenuSeparatorComponent,
-    HlmMenuItemIconDirective,
     HlmMenuBarItemDirective,
-    HlmMenuItemCheckComponent,
-    HlmMenuItemRadioComponent,
-    HlmMenuGroupComponent,
-    HlmMenuItemCheckboxDirective,
-    HlmMenuItemRadioDirective,
 } from '@spartan-ng/ui-menu-helm';
 import { SlicePipe } from '@angular/common';
 
