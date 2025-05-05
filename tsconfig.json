@@ -54,6 +54,9 @@
       ],
       "@spartan-ng/ui-tooltip-helm": [
         "./libs/ui/ui-tooltip-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-skeleton-helm": [
+        "./libs/ui/ui-skeleton-helm/src/index.ts"
       ]
     }
   },
