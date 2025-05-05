@@ -1,6 +1,9 @@
-<section hlmCard class="w-72 h-48">
+<section hlmCard class="w-75 h-48">
     <div hlmCardHeader class="flex flex-row items-center justify-between">
-        <h3 hlmCardTitle>{{ note.title }}</h3>
+        <h3 hlmCardTitle>
+            {{ note.title | slice : 0 : 15
+            }}{{ note.title.length > 15 ? "..." : "" }}
+        </h3>
         <hlm-menu-bar class="w-fit">
             <button
                 [brnMenuTriggerFor]="options"
@@ -20,8 +23,8 @@
     </div>
     <div hlmCardContent class="grid gap-4">
         <p class="text-sm text-muted-foreground">
-            {{ note.content | slice : 0 : 100
-            }}{{ note.content.length > 100 ? "..." : "" }}
+            {{ note.content | slice : 0 : 70
+            }}{{ note.content.length > 70 ? "..." : "" }}
         </p>
     </div>
 </section>
