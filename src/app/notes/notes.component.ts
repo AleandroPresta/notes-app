@@ -22,15 +22,30 @@ export class NotesComponent {
         const userToken: string = localStorage.getItem('auth_token') || '';
 
         this.isLoading = true;
-        notesService.getUserId(userToken).subscribe((userId) => {
-            if (userId) {
-                notesService.getNotesByUserId(userId).subscribe((notes) => {
-                    this.notes = notes;
-                });
-            } else {
-                console.error('No user ID found');
-            }
+        notesService.getUserId(userToken).subscribe({
+            next: (userId) => {
+                if (userId) {
+                    notesService.getNotesByUserId(userId).subscribe({
+                        next: (notes) => {
+                            this.notes = notes;
+                            this.isLoading = false; // Only set to false when data is loaded
+                        },
+                        error: (error) => {
+                            console.error('Error fetching notes:', error);
+                            this.isLoading = false; // Still need to set false on error
+                        },
+                    });
+                } else {
+                    console.error('No user ID found');
+                    this.isLoading = false; // Set to false if no user ID
+                }
+            },
+            error: (error) => {
+                console.error('Error fetching user ID:', error);
+                this.isLoading = false; // Set to false on error
+            },
         });
+        // Remove this line as it immediately sets loading to false
         // this.isLoading = false;
     }
 }
