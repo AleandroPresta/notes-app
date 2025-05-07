@@ -16,11 +16,11 @@
         <div
             class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
         >
-            <hlm-menu-bar class="w-fit">
+            <hlm-menu-bar class="w-fit border-none shadow-none">
                 <button
                     [brnMenuTriggerFor]="options"
                     hlmMenuBarItem
-                    class="flex text-sm rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    class="flex text-sm rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 hover:cursor-pointer"
                 >
                     <ng-icon hlm name="lucideCircleUserRound" />
                 </button>
@@ -39,6 +39,7 @@
                         >
                         <hlm-menu-separator></hlm-menu-separator>
                     </div>
+                    <button hlmMenuItem>Profile Page</button>
                     <button hlmMenuItem (click)="logout()">Logout</button>
                 </hlm-menu>
             </ng-template>
