@@ -1,35 +1,33 @@
 <hlm-dialog [state]="dialogState" (closed)="onDialogClose()">
-    <button id="edit-profile" brnDialogTrigger hlmBtn>Edit Profile</button>
-    <hlm-dialog-content
-        class="sm:max-w-[425px] rounded-lg"
-        *brnDialogContent="let ctx"
-    >
+    <hlm-dialog-content class="rounded-lg" *brnDialogContent="let ctx">
         <hlm-dialog-header>
             <h3 hlmDialogTitle>New Note</h3>
             <p hlmDialogDescription>Create and store a new note</p>
         </hlm-dialog-header>
-        <div class="py-4 grid gap-4">
-            <div class="items-center grid grid-cols-4 gap-4">
-                <label hlmLabel for="name" class="text-right">Name</label>
+        <form class="flex flex-col items-end py-2">
+            <label hlmLabel class="w-full">
+                Title
                 <input
+                    class="mt-1.5 w-full"
+                    placeholder="Buy groceries"
                     hlmInput
-                    id="name"
-                    value="Pedro Duarte"
-                    class="col-span-3"
+                    autocomplete="off"
+                    name="newTitle"
                 />
-            </div>
-            <div class="items-center grid grid-cols-4 gap-4">
-                <label hlmLabel for="username" class="text-right"
-                    >Username</label
-                >
-                <input
+            </label>
+
+            <label hlmLabel class="w-full mt-4">
+                Content
+                <textarea
+                    class="mt-1.5 h-fit w-full"
+                    placeholder="2x eggs, 1x milk,..."
                     hlmInput
-                    id="username"
-                    value="@peduarte"
-                    class="col-span-3"
-                />
-            </div>
-        </div>
+                    autocomplete="off"
+                    name="newContent"
+                    rows="4"
+                ></textarea>
+            </label>
+        </form>
         <hlm-dialog-footer>
             <button hlmBtn type="submit">Save changes</button>
         </hlm-dialog-footer>
