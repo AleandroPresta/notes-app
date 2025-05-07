@@ -12,6 +12,7 @@ import { lucidePlus } from '@ng-icons/lucide';
 
 import {
     BrnDialogContentDirective,
+    BrnDialogRef,
     BrnDialogTriggerDirective,
 } from '@spartan-ng/brain/dialog';
 import {
@@ -50,6 +51,18 @@ export class NotesComponent {
 
     notes: Note[] = [];
     isLoading: boolean = true;
+
+    dialogState: 'open' | 'closed' = 'closed';
+
+    openDialog() {
+        this.dialogState = 'open';
+        console.log('Dialog opened');
+    }
+
+    onDialogClose() {
+        this.dialogState = 'closed';
+        console.log('Dialog closed');
+    }
 
     constructor(notesService: NotesService) {
         const userToken: string = localStorage.getItem('auth_token') || '';
@@ -90,5 +103,7 @@ export class NotesComponent {
         });
     }
 
-    openAddNewNoteModal() {}
+    openAddNewNoteModal() {
+        this.openDialog();
+    }
 }

@@ -1,4 +1,4 @@
-<hlm-dialog>
+<hlm-dialog [state]="dialogState" (closed)="onDialogClose()">
     <hlm-dialog-content *brnDialogContent="let ctx">
         <hlm-dialog-header>
             <h3 brnDialogTitle hlm>Edit profile</h3>
