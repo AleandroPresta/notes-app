@@ -5,10 +5,22 @@ import { Note } from './Notes';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { NotesSkeletonComponent } from './notes-skeleton/notes-skeleton.component';
 import { UserInfo } from './UserInfo';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { lucidePlus } from '@ng-icons/lucide';
 
 @Component({
     selector: 'spartan-notes',
-    imports: [NotesListComponent, NavbarComponent, NotesSkeletonComponent],
+    imports: [
+        NotesListComponent,
+        NavbarComponent,
+        NotesSkeletonComponent,
+        NgIcon,
+        HlmButtonDirective,
+        HlmIconDirective,
+    ],
+    providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',
     styleUrl: './notes.component.css',
 })
