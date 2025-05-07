@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NotesComponent } from './notes.component';
 import { NotesService } from './notes.service';
 import { of } from 'rxjs';
+import { UserInfo } from './UserInfo';
 
 describe('NotesComponent', () => {
     let component: NotesComponent;
@@ -14,8 +15,12 @@ describe('NotesComponent', () => {
         spyOn(localStorage, 'getItem').and.returnValue('mock-token');
 
         // Create mock NotesService
-        mockNotesService = jasmine.createSpyObj('NotesService', ['getUserId']);
-        mockNotesService.getUserId.and.returnValue(of(123));
+        mockNotesService = jasmine.createSpyObj('NotesService', [
+            'getUserInfo',
+        ]);
+        mockNotesService.getUserInfo.and.returnValue(
+            of(new UserInfo(1, 'John', 'Doe'))
+        );
 
         await TestBed.configureTestingModule({
             imports: [NotesComponent, HttpClientTestingModule],
@@ -32,6 +37,6 @@ describe('NotesComponent', () => {
     });
 
     it('should get user id from service', () => {
-        expect(mockNotesService.getUserId).toHaveBeenCalled();
+        expect(mockNotesService.getUserInfo).toHaveBeenCalled();
     });
 });
