@@ -40,11 +40,9 @@ export class NewNoteDialogComponent {
 
     openDialog() {
         this.dialogState = 'open';
-        console.log('Dialog opened');
     }
 
     onDialogClose() {
         this.dialogState = 'closed';
-        console.log('Dialog closed');
     }
 }

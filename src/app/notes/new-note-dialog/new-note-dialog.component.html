@@ -1,11 +1,12 @@
 <hlm-dialog [state]="dialogState" (closed)="onDialogClose()">
     <button id="edit-profile" brnDialogTrigger hlmBtn>Edit Profile</button>
-    <hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
+    <hlm-dialog-content
+        class="sm:max-w-[425px] rounded-lg"
+        *brnDialogContent="let ctx"
+    >
         <hlm-dialog-header>
-            <h3 hlmDialogTitle>Edit profile</h3>
-            <p hlmDialogDescription>
-                Make changes to your profile here. Click save when you're done.
-            </p>
+            <h3 hlmDialogTitle>New Note</h3>
+            <p hlmDialogDescription>Create and store a new note</p>
         </hlm-dialog-header>
         <div class="py-4 grid gap-4">
             <div class="items-center grid grid-cols-4 gap-4">
