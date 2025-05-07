@@ -1,7 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmMenuComponent } from '@spartan-ng/ui-menu-helm';
+import {
+    HlmMenuComponent,
+    HlmMenuGroupComponent,
+} from '@spartan-ng/ui-menu-helm';
 import {
     HlmMenuBarComponent,
     HlmMenuItemDirective,
@@ -9,7 +12,16 @@ import {
 } from '@spartan-ng/ui-menu-helm';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmMenuSeparatorComponent } from '../../../libs/ui/ui-menu-helm/src/lib/hlm-menu-separator.component';
-import { lucideCircleUserRound, lucideCircleUser } from '@ng-icons/lucide';
+import {
+    lucideCircleUserRound,
+    lucideContact,
+    lucideInfo,
+    lucideLogOut,
+    lucidePlus,
+    lucideUser,
+} from '@ng-icons/lucide';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
     selector: 'app-navbar',
@@ -23,8 +35,20 @@ import { lucideCircleUserRound, lucideCircleUser } from '@ng-icons/lucide';
         HlmMenuBarItemDirective,
         NgIcon,
         HlmMenuSeparatorComponent,
+        HlmButtonDirective,
+        HlmIconDirective,
+        HlmMenuGroupComponent,
     ],
-    providers: [provideIcons({ lucideCircleUserRound })],
+    providers: [
+        provideIcons({
+            lucideCircleUserRound,
+            lucidePlus,
+            lucideInfo,
+            lucideContact,
+            lucideUser,
+            lucideLogOut,
+        }),
+    ],
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css'],
 })
@@ -33,6 +57,8 @@ export class NavbarComponent {
     @Input() userFirstName: string = '';
     @Input() userLastName: string = '';
 
+    @Output() addNote = new EventEmitter<void>();
+
     constructor() {}
 
     logout() {
@@ -40,5 +66,9 @@ export class NavbarComponent {
         console.log('Logging out');
         // localStorage.removeItem('auth_token'); TODO activate in production
         // Navigate to login/auth page
+    }
+
+    openAddNewNoteModal() {
+        this.addNote.emit();
     }
 }

@@ -5,10 +5,42 @@ import { Note } from './Notes';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { NotesSkeletonComponent } from './notes-skeleton/notes-skeleton.component';
 import { UserInfo } from './UserInfo';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { lucidePlus } from '@ng-icons/lucide';
+
+import {
+    BrnDialogContentDirective,
+    BrnDialogRef,
+    BrnDialogTriggerDirective,
+} from '@spartan-ng/brain/dialog';
+import {
+    HlmDialogComponent,
+    HlmDialogContentComponent,
+    HlmDialogDescriptionDirective,
+    HlmDialogFooterComponent,
+    HlmDialogHeaderComponent,
+    HlmDialogTitleDirective,
+} from '@spartan-ng/ui-dialog-helm';
 
 @Component({
     selector: 'spartan-notes',
-    imports: [NotesListComponent, NavbarComponent, NotesSkeletonComponent],
+    imports: [
+        NotesListComponent,
+        NavbarComponent,
+        NotesSkeletonComponent,
+        NgIcon,
+        HlmButtonDirective,
+        HlmIconDirective,
+        HlmDialogComponent,
+        HlmDialogContentComponent,
+        HlmDialogFooterComponent,
+        HlmDialogHeaderComponent,
+        BrnDialogTriggerDirective,
+        BrnDialogContentDirective,
+    ],
+    providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',
     styleUrl: './notes.component.css',
 })
@@ -19,6 +51,18 @@ export class NotesComponent {
 
     notes: Note[] = [];
     isLoading: boolean = true;
+
+    dialogState: 'open' | 'closed' = 'closed';
+
+    openDialog() {
+        this.dialogState = 'open';
+        console.log('Dialog opened');
+    }
+
+    onDialogClose() {
+        this.dialogState = 'closed';
+        console.log('Dialog closed');
+    }
 
     constructor(notesService: NotesService) {
         const userToken: string = localStorage.getItem('auth_token') || '';
@@ -57,7 +101,9 @@ export class NotesComponent {
                 this.isLoading = false; // Set to false on error
             },
         });
-        // Remove this line as it immediately sets loading to false
-        // this.isLoading = false;
+    }
+
+    openAddNewNoteModal() {
+        this.openDialog();
     }
 }
