@@ -25,7 +25,6 @@
                     <ng-icon hlm name="lucideCircleUserRound" />
                 </button>
             </hlm-menu-bar>
-
             <ng-template #options>
                 <hlm-menu variant="menubar">
                     <div class="px-4 py-3">
@@ -39,7 +38,10 @@
                         >
                         <hlm-menu-separator></hlm-menu-separator>
                     </div>
-                    <button hlmMenuItem>Profile Page</button>
+                    <button hlmMenuItem>About</button>
+                    <button hlmMenuItem>Contact</button>
+                    <hlm-menu-separator></hlm-menu-separator>
+                    <button hlmMenuItem>Profile</button>
                     <button hlmMenuItem (click)="logout()">Logout</button>
                 </hlm-menu>
             </ng-template>

@@ -9,7 +9,9 @@ import {
 } from '@spartan-ng/ui-menu-helm';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmMenuSeparatorComponent } from '../../../libs/ui/ui-menu-helm/src/lib/hlm-menu-separator.component';
-import { lucideCircleUserRound, lucideCircleUser } from '@ng-icons/lucide';
+import { lucideCircleUserRound, lucidePlus } from '@ng-icons/lucide';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
     selector: 'app-navbar',
@@ -23,8 +25,10 @@ import { lucideCircleUserRound, lucideCircleUser } from '@ng-icons/lucide';
         HlmMenuBarItemDirective,
         NgIcon,
         HlmMenuSeparatorComponent,
+        HlmButtonDirective,
+        HlmIconDirective,
     ],
-    providers: [provideIcons({ lucideCircleUserRound })],
+    providers: [provideIcons({ lucideCircleUserRound, lucidePlus })],
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css'],
 })
