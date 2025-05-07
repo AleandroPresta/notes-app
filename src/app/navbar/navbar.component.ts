@@ -66,7 +66,7 @@ export class NavbarComponent {
         // Navigate to login/auth page
     }
 
-    addNote() {
+    openAddNewNoteModal() {
         // Add note logic here
         console.log('Adding note');
     }

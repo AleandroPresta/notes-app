@@ -69,7 +69,7 @@ export class NotesComponent {
                 this.isLoading = false; // Set to false on error
             },
         });
-        // Remove this line as it immediately sets loading to false
-        // this.isLoading = false;
     }
+
+    openAddNewNoteModal() {}
 }

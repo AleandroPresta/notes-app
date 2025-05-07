@@ -16,7 +16,11 @@
         <div
             class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
         >
-            <button (click)="addNote()" hlmBtn class="hidden sm:flex">
+            <button
+                (click)="openAddNewNoteModal()"
+                hlmBtn
+                class="rounded-full hidden sm:flex"
+            >
                 <ng-icon hlm size="sm" class="mr-2" name="lucidePlus" />
                 <p>Add note</p>
             </button>
