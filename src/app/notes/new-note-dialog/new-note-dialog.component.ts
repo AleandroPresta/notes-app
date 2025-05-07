@@ -1,9 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import {
-    BrnDialogContentDirective,
-    BrnDialogTriggerDirective,
-} from '@spartan-ng/brain/dialog';
+import { BrnDialogContentDirective } from '@spartan-ng/brain/dialog';
 import {
     HlmDialogComponent,
     HlmDialogContentComponent,
@@ -14,14 +11,15 @@ import {
 } from '@spartan-ng/ui-dialog-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Note } from '../Note';
 
 @Component({
     selector: 'spartan-dialog-new-note',
     standalone: true,
     imports: [
-        BrnDialogTriggerDirective,
         BrnDialogContentDirective,
-
+        FormsModule,
         HlmDialogComponent,
         HlmDialogContentComponent,
         HlmDialogHeaderComponent,
@@ -37,6 +35,7 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 })
 export class NewNoteDialogComponent {
     @Input() dialogState: 'open' | 'closed' = 'closed';
+    note: Note = { title: '', content: '' };
 
     openDialog() {
         this.dialogState = 'open';
@@ -44,5 +43,14 @@ export class NewNoteDialogComponent {
 
     onDialogClose() {
         this.dialogState = 'closed';
+    }
+
+    onSubmit(form: NgForm) {
+        if (form.valid) {
+            console.log('Form submitted:', this.note);
+            // Handle form submission logic here
+            this.onDialogClose();
+            this.note = { title: '', content: '' }; // Reset the note object
+        }
     }
 }

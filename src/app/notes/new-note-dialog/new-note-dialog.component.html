@@ -7,7 +7,11 @@
             <h3 hlmDialogTitle>New Note</h3>
             <p hlmDialogDescription>Create and store a new note</p>
         </hlm-dialog-header>
-        <form class="flex flex-col items-end py-2">
+        <form
+            #noteForm="ngForm"
+            class="flex flex-col items-end py-2"
+            (ngSubmit)="onSubmit(noteForm)"
+        >
             <label hlmLabel class="w-full">
                 Title
                 <input
@@ -15,7 +19,8 @@
                     placeholder="Buy groceries"
                     hlmInput
                     autocomplete="off"
-                    name="newTitle"
+                    name="title"
+                    [(ngModel)]="note.title"
                 />
             </label>
 
@@ -26,13 +31,14 @@
                     placeholder="2x eggs, 1x milk,..."
                     hlmInput
                     autocomplete="off"
-                    name="newContent"
+                    name="content"
+                    [(ngModel)]="note.content"
                     rows="4"
                 ></textarea>
             </label>
-        </form>
-        <hlm-dialog-footer>
+
             <button hlmBtn type="submit">Save changes</button>
-        </hlm-dialog-footer>
+        </form>
+        <hlm-dialog-footer> </hlm-dialog-footer>
     </hlm-dialog-content>
 </hlm-dialog>

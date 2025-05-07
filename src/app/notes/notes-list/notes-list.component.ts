@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Note } from '../Notes';
+import { Note } from '../Note';
 import { NgFor } from '@angular/common';
 import { NoteCardComponent } from './note-card/note-card.component';
 

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Note } from '../../Notes';
+import { Note } from '../../Note';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {

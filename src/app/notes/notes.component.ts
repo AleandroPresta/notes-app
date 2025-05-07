@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { NotesService } from './notes.service';
 import { NotesListComponent } from './notes-list/notes-list.component';
-import { Note } from './Notes';
+import { Note } from './Note';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { NotesSkeletonComponent } from './notes-skeleton/notes-skeleton.component';
 import { UserInfo } from './UserInfo';
