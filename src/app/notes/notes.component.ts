@@ -10,6 +10,19 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { lucidePlus } from '@ng-icons/lucide';
 
+import {
+    BrnDialogContentDirective,
+    BrnDialogTriggerDirective,
+} from '@spartan-ng/brain/dialog';
+import {
+    HlmDialogComponent,
+    HlmDialogContentComponent,
+    HlmDialogDescriptionDirective,
+    HlmDialogFooterComponent,
+    HlmDialogHeaderComponent,
+    HlmDialogTitleDirective,
+} from '@spartan-ng/ui-dialog-helm';
+
 @Component({
     selector: 'spartan-notes',
     imports: [
@@ -19,6 +32,12 @@ import { lucidePlus } from '@ng-icons/lucide';
         NgIcon,
         HlmButtonDirective,
         HlmIconDirective,
+        HlmDialogComponent,
+        HlmDialogContentComponent,
+        HlmDialogFooterComponent,
+        HlmDialogHeaderComponent,
+        BrnDialogTriggerDirective,
+        BrnDialogContentDirective,
     ],
     providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',

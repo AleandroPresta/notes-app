@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import {
@@ -57,6 +57,8 @@ export class NavbarComponent {
     @Input() userFirstName: string = '';
     @Input() userLastName: string = '';
 
+    @Output() addNote = new EventEmitter<void>();
+
     constructor() {}
 
     logout() {
@@ -67,7 +69,6 @@ export class NavbarComponent {
     }
 
     openAddNewNoteModal() {
-        // Add note logic here
-        console.log('Adding note');
+        this.addNote.emit();
     }
 }
