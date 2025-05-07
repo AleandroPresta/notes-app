@@ -31,14 +31,15 @@
                     required
                     class="mt-1.5 h-fit w-full"
                     placeholder="2x eggs, 1x milk,..."
-                    hlmInput
                     autocomplete="off"
+                    hlmInput
                     name="content"
                     [(ngModel)]="note.content"
                     rows="4"
                 ></textarea>
             </label>
             @if (isNoteInvalid) {<spartan-alert-destructive
+                class="w-full mt-2"
                 [errorMessage]="errorMessage"
             ></spartan-alert-destructive
             >}
