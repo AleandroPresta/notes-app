@@ -1,5 +1,8 @@
 <hlm-dialog [state]="dialogState" (closed)="onDialogClose()">
-    <hlm-dialog-content class="rounded-lg" *brnDialogContent="let ctx">
+    <hlm-dialog-content
+        class="rounded-lg !w-[600px] max-w-[90vw]"
+        *brnDialogContent="let ctx"
+    >
         <hlm-dialog-header>
             <h3 hlmDialogTitle>New Note</h3>
             <p hlmDialogDescription>Create and store a new note</p>
