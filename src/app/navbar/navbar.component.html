@@ -16,6 +16,10 @@
         <div
             class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
         >
+            <button (click)="addNote()" hlmBtn class="hidden sm:flex">
+                <ng-icon hlm size="sm" class="mr-2" name="lucidePlus" />
+                <p>Add note</p>
+            </button>
             <hlm-menu-bar class="w-fit border-none shadow-none">
                 <button
                     [brnMenuTriggerFor]="options"
@@ -26,7 +30,7 @@
                 </button>
             </hlm-menu-bar>
             <ng-template #options>
-                <hlm-menu variant="menubar">
+                <hlm-menu class="w-56">
                     <div class="px-4 py-3">
                         <span
                             class="block text-sm text-gray-900 dark:text-white"
@@ -38,11 +42,28 @@
                         >
                         <hlm-menu-separator></hlm-menu-separator>
                     </div>
-                    <button hlmMenuItem>About</button>
-                    <button hlmMenuItem>Contact</button>
+                    <hlm-menu-group>
+                        <button hlmMenuItem>
+                            <ng-icon hlm name="lucideInfo" hlmMenuIcon />
+                            <span class="ml-2">About</span>
+                        </button>
+                        <button hlmMenuItem>
+                            <ng-icon hlm name="lucideContact" hlmMenuIcon />
+                            <span class="ml-2">Contact</span>
+                        </button>
+                    </hlm-menu-group>
+
                     <hlm-menu-separator></hlm-menu-separator>
-                    <button hlmMenuItem>Profile</button>
-                    <button hlmMenuItem (click)="logout()">Logout</button>
+                    <hlm-menu-group
+                        ><button hlmMenuItem>
+                            <ng-icon hlm name="lucideUser" hlmMenuIcon />
+                            <span class="ml-2">Profile</span>
+                        </button>
+                        <button hlmMenuItem (click)="logout()">
+                            <ng-icon hlm name="lucideLogOut" hlmMenuIcon />
+                            <span class="ml-2">Logout</span>
+                        </button></hlm-menu-group
+                    >
                 </hlm-menu>
             </ng-template>
         </div>
