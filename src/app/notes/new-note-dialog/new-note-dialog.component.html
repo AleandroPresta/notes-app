@@ -15,6 +15,7 @@
             <label hlmLabel class="w-full">
                 Title
                 <input
+                    required
                     class="mt-1.5 w-full"
                     placeholder="Buy groceries"
                     hlmInput
@@ -27,6 +28,7 @@
             <label hlmLabel class="w-full mt-4">
                 Content
                 <textarea
+                    required
                     class="mt-1.5 h-fit w-full"
                     placeholder="2x eggs, 1x milk,..."
                     hlmInput
@@ -36,9 +38,14 @@
                     rows="4"
                 ></textarea>
             </label>
+            @if (isNoteInvalid) {<spartan-alert-destructive
+                [errorMessage]="errorMessage"
+            ></spartan-alert-destructive
+            >}
 
-            <button hlmBtn type="submit">Save changes</button>
+            <button class="w-full mt-2" hlmBtn type="submit">
+                Save changes
+            </button>
         </form>
-        <hlm-dialog-footer> </hlm-dialog-footer>
     </hlm-dialog-content>
 </hlm-dialog>
