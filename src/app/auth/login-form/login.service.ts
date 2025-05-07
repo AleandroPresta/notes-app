@@ -24,8 +24,6 @@ export class LoginService {
             })
             .pipe(
                 map((response) => {
-                    console.log(response);
-                    console.log(response.authToken);
                     // Store the authToken in localStorage or a service
                     if (response && response.authToken) {
                         localStorage.setItem('auth_token', response.authToken);

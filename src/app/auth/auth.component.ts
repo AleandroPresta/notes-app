@@ -11,6 +11,15 @@ import {
     HlmTabsTriggerDirective,
 } from '@spartan-ng/ui-tabs-helm';
 
+import {
+    HlmCardContentDirective,
+    HlmCardDescriptionDirective,
+    HlmCardDirective,
+    HlmCardFooterDirective,
+    HlmCardHeaderDirective,
+    HlmCardTitleDirective,
+} from '@spartan-ng/ui-card-helm';
+
 @Component({
     selector: 'spartan-authentication',
     imports: [
@@ -21,6 +30,7 @@ import {
         HlmTabsListComponent,
         HlmTabsTriggerDirective,
         HlmTabsContentDirective,
+        HlmCardDirective,
     ],
     templateUrl: './auth.component.html',
 })

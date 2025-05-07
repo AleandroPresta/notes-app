@@ -1,0 +1,30 @@
+<section hlmCard class="w-75 h-48">
+    <div hlmCardHeader class="flex flex-row items-center justify-between">
+        <h3 hlmCardTitle>
+            {{ note.title | slice : 0 : 15
+            }}{{ note.title.length > 15 ? "..." : "" }}
+        </h3>
+        <hlm-menu-bar class="w-fit">
+            <button
+                [brnMenuTriggerFor]="options"
+                hlmMenuBarItem
+                variant="outline"
+            >
+                <ng-icon hlm size="sm" name="lucideEllipsisVertical" />
+            </button>
+        </hlm-menu-bar>
+
+        <ng-template #options>
+            <hlm-menu variant="menubar">
+                <button inset hlmMenuItem (click)="modifyNote()">Modify</button>
+                <button inset hlmMenuItem (click)="deleteNote()">Delete</button>
+            </hlm-menu>
+        </ng-template>
+    </div>
+    <div hlmCardContent class="grid gap-4">
+        <p class="text-sm text-muted-foreground">
+            {{ note.content | slice : 0 : 70
+            }}{{ note.content.length > 70 ? "..." : "" }}
+        </p>
+    </div>
+</section>
