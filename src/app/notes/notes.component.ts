@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { NotesService } from './notes.service';
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { Note } from './Notes';
@@ -9,20 +9,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { lucidePlus } from '@ng-icons/lucide';
-
-import {
-    BrnDialogContentDirective,
-    BrnDialogRef,
-    BrnDialogTriggerDirective,
-} from '@spartan-ng/brain/dialog';
-import {
-    HlmDialogComponent,
-    HlmDialogContentComponent,
-    HlmDialogDescriptionDirective,
-    HlmDialogFooterComponent,
-    HlmDialogHeaderComponent,
-    HlmDialogTitleDirective,
-} from '@spartan-ng/ui-dialog-helm';
+import { NewNoteDialogComponent } from './new-note-dialog/new-note-dialog.component';
 
 @Component({
     selector: 'spartan-notes',
@@ -33,12 +20,7 @@ import {
         NgIcon,
         HlmButtonDirective,
         HlmIconDirective,
-        HlmDialogComponent,
-        HlmDialogContentComponent,
-        HlmDialogFooterComponent,
-        HlmDialogHeaderComponent,
-        BrnDialogTriggerDirective,
-        BrnDialogContentDirective,
+        NewNoteDialogComponent,
     ],
     providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',
@@ -52,17 +34,7 @@ export class NotesComponent {
     notes: Note[] = [];
     isLoading: boolean = true;
 
-    dialogState: 'open' | 'closed' = 'closed';
-
-    openDialog() {
-        this.dialogState = 'open';
-        console.log('Dialog opened');
-    }
-
-    onDialogClose() {
-        this.dialogState = 'closed';
-        console.log('Dialog closed');
-    }
+    @ViewChild(NewNoteDialogComponent) newNoteDialog!: NewNoteDialogComponent;
 
     constructor(notesService: NotesService) {
         const userToken: string = localStorage.getItem('auth_token') || '';
@@ -103,7 +75,8 @@ export class NotesComponent {
         });
     }
 
+    // Method to open the new note dialog
     openAddNewNoteModal() {
-        this.openDialog();
+        this.newNoteDialog.openDialog();
     }
 }

@@ -1,16 +1,4 @@
-<hlm-dialog [state]="dialogState" (closed)="onDialogClose()">
-    <hlm-dialog-content *brnDialogContent="let ctx">
-        <hlm-dialog-header>
-            <h3 brnDialogTitle hlm>Edit profile</h3>
-            <p brnDialogDescription hlm>
-                Make changes to your profile here. Click save when you're done.
-            </p>
-        </hlm-dialog-header>
-        <hlm-dialog-footer>
-            <button hlmBtn type="submit">Save changes</button>
-        </hlm-dialog-footer>
-    </hlm-dialog-content>
-</hlm-dialog>
+<spartan-dialog-new-note></spartan-dialog-new-note>
 
 <app-navbar
     [userEmail]="userEmail"
