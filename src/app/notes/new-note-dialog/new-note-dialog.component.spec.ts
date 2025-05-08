@@ -38,7 +38,11 @@ describe('NewNoteDialogComponent', () => {
     // Add test for note creation functionality
     it('should call createNote when save is called', () => {
         // Setup
-        component.note = { title: 'Test Note', content: 'Test Content' };
+        component.note = {
+            title: 'Test Note',
+            content: 'Test Content',
+            user_id: 1,
+        };
 
         // Call the method
         component.onSubmit({
@@ -46,6 +50,7 @@ describe('NewNoteDialogComponent', () => {
             value: {
                 title: 'Test Note',
                 content: 'Test Content',
+                user_id: 1,
             },
         } as any);
 
