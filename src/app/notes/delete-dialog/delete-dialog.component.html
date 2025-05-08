@@ -1,0 +1,34 @@
+<hlm-dialog [state]="dialogState" (closed)="onDialogClose()">
+    <hlm-dialog-content
+        class="rounded-lg !w-[600px] max-w-[90vw]"
+        *brnDialogContent="let ctx"
+    >
+        <hlm-dialog-header>
+            <h3 hlmDialogTitle>Delete Note</h3>
+        </hlm-dialog-header>
+        <div>
+            <p class="text-sm text-gray-500">
+                Are you sure you want to delete this note? This action cannot be
+                undone.
+            </p>
+        </div>
+        <hlm-dialog-footer class="flex gap-2">
+            <button
+                hlmBtn
+                size="sm"
+                variant="secondary"
+                (click)="onDialogClose()"
+            >
+                Cancel
+            </button>
+            <button
+                hlmBtn
+                size="sm"
+                variant="destructive"
+                (click)="onConfirmDelete()"
+            >
+                Delete
+            </button>
+        </hlm-dialog-footer>
+    </hlm-dialog-content>
+</hlm-dialog>

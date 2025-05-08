@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { NotesService } from './notes.service';
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { Note } from './Note';
@@ -12,6 +12,8 @@ import { lucidePlus } from '@ng-icons/lucide';
 import { NewNoteDialogComponent } from './new-note-dialog/new-note-dialog.component';
 import { toast } from 'ngx-sonner';
 import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { ModifyNoteDialogComponent } from './modify-note-dialog/modify-note-dialog.component';
 
 @Component({
     selector: 'spartan-notes',
@@ -24,6 +26,8 @@ import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
         HlmIconDirective,
         NewNoteDialogComponent,
         HlmToasterComponent,
+        DeleteDialogComponent,
+        ModifyNoteDialogComponent,
     ],
     providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',
@@ -39,6 +43,9 @@ export class NotesComponent {
     isLoading: boolean = true;
 
     @ViewChild(NewNoteDialogComponent) newNoteDialog!: NewNoteDialogComponent;
+    @ViewChild(DeleteDialogComponent) deleteNoteDialog!: DeleteDialogComponent;
+    @ViewChild(ModifyNoteDialogComponent)
+    modifyNoteDialog!: ModifyNoteDialogComponent;
 
     constructor(private notesService: NotesService) {
         const userToken: string = localStorage.getItem('auth_token') || '';
@@ -102,6 +109,39 @@ export class NotesComponent {
             },
         });
         // Refresh notes list when a new note is created
+        this.refreshNotes();
+    }
+
+    onOpenNoteDeletionDialog(event: any) {
+        console.log(event);
+        this.deleteNoteDialog.openDialog(event);
+    }
+
+    onOpenNoteModificationDialog(note: Note) {
+        console.log('Opening modify dialog for note:', note);
+        this.modifyNoteDialog.openDialog(note);
+    }
+
+    onNoteModified() {
+        toast.success('Note modified successfully!', {
+            description: 'Your note has been updated.',
+            duration: 3000,
+            action: {
+                label: 'Close',
+                onClick: () => {
+                    toast.dismiss();
+                },
+            },
+            style: {
+                backgroundColor: '#1e293b',
+                color: '#ffffff',
+            },
+        });
+        // Refresh notes list when a note is modified
+        this.refreshNotes();
+    }
+
+    private refreshNotes() {
         this.isLoading = true;
         this.notesService.getNotesByUserId(this.userId).subscribe({
             next: (notes) => {
@@ -113,5 +153,24 @@ export class NotesComponent {
                 this.isLoading = false;
             },
         });
+    }
+
+    onDeleteNote() {
+        toast.success('Note deleted successfully!', {
+            description: 'Your note has been deleted.',
+            duration: 3000,
+            action: {
+                label: 'Close',
+                onClick: () => {
+                    toast.dismiss();
+                },
+            },
+            style: {
+                backgroundColor: '#1e293b',
+                color: '#ffffff',
+            },
+        });
+        // Refresh notes list when a note is deleted
+        this.refreshNotes();
     }
 }

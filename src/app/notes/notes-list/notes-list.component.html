@@ -2,6 +2,10 @@
     class="grid grid-cols-1 gap-3 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
 >
     @for (note of notes; track note) {
-    <spartan-note-card [note]="note"></spartan-note-card>
+    <spartan-note-card
+        (openNoteDeletionDialog)="onOpenNoteDeletionDialog(note.id)"
+        (openNoteModificationDialog)="onOpenNoteModificationDialog(note)"
+        [note]="note"
+    ></spartan-note-card>
     }
 </div>
