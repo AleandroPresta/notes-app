@@ -3,7 +3,7 @@ import { HlmDialogModule } from '../../../../libs/ui/ui-dialog-helm/src/index';
 import { HlmDialogFooterComponent } from '../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-footer.component';
 
 @Component({
-    selector: 'app-delete-note-dialog',
+    selector: 'spartan-delete-note-dialog',
     imports: [HlmDialogModule, HlmDialogFooterComponent],
     templateUrl: './delete-note-dialog.component.html',
     styleUrl: './delete-note-dialog.component.css',
@@ -12,8 +12,6 @@ export class DeleteNoteDialogComponent {
     @Input() dialogState: 'open' | 'closed' = 'closed';
     @Output() confirmNoteDeletion: EventEmitter<void> =
         new EventEmitter<void>();
-
-    @Input() noteId: number = 0;
 
     constructor() {}
 

@@ -12,6 +12,7 @@ import { lucidePlus } from '@ng-icons/lucide';
 import { NewNoteDialogComponent } from './new-note-dialog/new-note-dialog.component';
 import { toast } from 'ngx-sonner';
 import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
+import { DeleteNoteDialogComponent } from './delete-note-dialog/delete-note-dialog.component';
 
 @Component({
     selector: 'spartan-notes',
@@ -24,6 +25,7 @@ import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
         HlmIconDirective,
         NewNoteDialogComponent,
         HlmToasterComponent,
+        DeleteNoteDialogComponent,
     ],
     providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',
@@ -116,6 +118,6 @@ export class NotesComponent {
     }
 
     onOpenNoteDeletionDialog(event: any): void {
-        console.log('Event: ', event);
+        console.log('Deleting note with id: ', event);
     }
 }
