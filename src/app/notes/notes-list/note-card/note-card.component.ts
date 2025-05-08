@@ -57,7 +57,7 @@ export class NoteCardComponent {
 
     @Output() openNoteDeletionDialog: EventEmitter<number> =
         new EventEmitter<number>();
-    
+
     @Output() openNoteModificationDialog: EventEmitter<Note> =
         new EventEmitter<Note>();
 
@@ -66,7 +66,7 @@ export class NoteCardComponent {
     onOpenDeleteNoteDialog() {
         this.openNoteDeletionDialog.emit(this.note.id);
     }
-    
+
     onOpenModifyNoteDialog() {
         this.openNoteModificationDialog.emit(this.note);
     }

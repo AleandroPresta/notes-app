@@ -44,7 +44,8 @@ export class NotesComponent {
 
     @ViewChild(NewNoteDialogComponent) newNoteDialog!: NewNoteDialogComponent;
     @ViewChild(DeleteDialogComponent) deleteNoteDialog!: DeleteDialogComponent;
-    @ViewChild(ModifyNoteDialogComponent) modifyNoteDialog!: ModifyNoteDialogComponent;
+    @ViewChild(ModifyNoteDialogComponent)
+    modifyNoteDialog!: ModifyNoteDialogComponent;
 
     constructor(private notesService: NotesService) {
         const userToken: string = localStorage.getItem('auth_token') || '';

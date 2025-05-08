@@ -111,7 +111,7 @@ export class NotesService {
 
     updateNote(noteId: number, updatedNote: Note): Observable<any> {
         return this.http
-            .post<any>(`${this.NOTES_API_URL}/note/${noteId}`, updatedNote)
+            .put<any>(`${this.NOTES_API_URL}/note/${noteId}`, updatedNote)
             .pipe(
                 map((response) => {
                     if (response) {

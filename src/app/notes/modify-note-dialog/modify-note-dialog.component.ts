@@ -33,10 +33,10 @@ import { CommonModule } from '@angular/common';
         HlmInputDirective,
         HlmButtonDirective,
         HlmFormFieldModule,
-        SpartanAlertDestructiveComponent
+        SpartanAlertDestructiveComponent,
     ],
     templateUrl: './modify-note-dialog.component.html',
-    styleUrl: './modify-note-dialog.component.css'
+    styleUrl: './modify-note-dialog.component.css',
 })
 export class ModifyNoteDialogComponent {
     @Input() dialogState: 'open' | 'closed' = 'closed';
@@ -44,17 +44,18 @@ export class ModifyNoteDialogComponent {
     note: Note = {
         title: '',
         content: '',
-        user_id: 0
+        user_id: 0,
     };
     isNoteInvalid: boolean = false;
     errorMessage: string = 'Please fill in all fields.';
-    @Output() noteModifiedSuccessfully: EventEmitter<void> = new EventEmitter<void>();
+    @Output() noteModifiedSuccessfully: EventEmitter<void> =
+        new EventEmitter<void>();
 
     constructor(private notesService: NotesService) {}
 
     openDialog(note: Note) {
         this.noteId = note.id || 0;
-        this.note = {...note}; // Create a copy of the note to avoid modifying the original
+        this.note = { ...note }; // Create a copy of the note to avoid modifying the original
         this.dialogState = 'open';
     }
 
@@ -77,15 +78,15 @@ export class ModifyNoteDialogComponent {
             // Update the note using the NotesService
             this.notesService.updateNote(this.noteId, this.note).subscribe({
                 next: (response) => {
-                    console.log('Note updated successfully:', response);
                     this.noteModifiedSuccessfully.emit();
                     this.onDialogClose();
                 },
                 error: (error) => {
                     console.error('Error updating note:', error);
                     this.isNoteInvalid = true;
-                    this.errorMessage = 'Error updating note. Please try again.';
-                }
+                    this.errorMessage =
+                        'Error updating note. Please try again.';
+                },
             });
         } else {
             this.isNoteInvalid = true;
