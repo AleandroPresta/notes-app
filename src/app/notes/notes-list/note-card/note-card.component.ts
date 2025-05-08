@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Note } from '../../Note';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -28,7 +28,6 @@ import { SlicePipe } from '@angular/common';
     selector: 'spartan-note-card',
     standalone: true,
     imports: [
-        HlmButtonDirective,
         HlmCardContentDirective,
         HlmCardDirective,
         HlmCardHeaderDirective,
@@ -36,7 +35,6 @@ import { SlicePipe } from '@angular/common';
         HlmIconDirective,
         NgIcon,
         BrnMenuTriggerDirective,
-
         HlmMenuComponent,
         HlmMenuBarComponent,
         HlmMenuItemDirective,
@@ -54,15 +52,19 @@ export class NoteCardComponent {
         user_id: 0,
         title: '',
         content: '',
+        id: 0,
     };
+
+    @Output() openNoteDeletionDialog: EventEmitter<number> =
+        new EventEmitter<number>();
 
     constructor() {}
 
-    modifyNote() {
-        // Logic to modify the note
-        console.log('Modify note:', this.note);
+    onOpenModifyNoteDialog() {
+        this.openNoteDeletionDialog.emit(this.note.id);
     }
-    deleteNote() {
+
+    modifyNote() {
         // Logic to delete the note
         console.log('Delete note:', this.note);
     }
