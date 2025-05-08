@@ -1,0 +1,52 @@
+<hlm-dialog [state]="dialogState" (closed)="onDialogClose()">
+    <hlm-dialog-content
+        class="rounded-lg !w-[600px] max-w-[90vw]"
+        *brnDialogContent="let ctx"
+    >
+        <hlm-dialog-header>
+            <h3 hlmDialogTitle>Modify Note</h3>
+            <p hlmDialogDescription>Update your existing note</p>
+        </hlm-dialog-header>
+        <form
+            #noteForm="ngForm"
+            class="flex flex-col items-end py-2"
+            (ngSubmit)="onSubmit(noteForm)"
+        >
+            <label hlmLabel class="w-full">
+                Title
+                <input
+                    required
+                    class="mt-1.5 w-full"
+                    placeholder="Note title"
+                    hlmInput
+                    autocomplete="off"
+                    name="title"
+                    [(ngModel)]="note.title"
+                />
+            </label>
+
+            <label hlmLabel class="w-full mt-4">
+                Content
+                <textarea
+                    required
+                    class="mt-1.5 h-fit w-full"
+                    placeholder="Note content"
+                    autocomplete="off"
+                    hlmInput
+                    name="content"
+                    [(ngModel)]="note.content"
+                    rows="4"
+                ></textarea>
+            </label>
+            @if (isNoteInvalid) {<spartan-alert-destructive
+                class="w-full mt-2"
+                [errorMessage]="errorMessage"
+            ></spartan-alert-destructive
+            >}
+
+            <button class="w-full mt-2" hlmBtn type="submit">
+                Update Note
+            </button>
+        </form>
+    </hlm-dialog-content>
+</hlm-dialog>
