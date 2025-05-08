@@ -23,7 +23,6 @@ import {
     HlmMenuBarItemDirective,
 } from '@spartan-ng/ui-menu-helm';
 import { SlicePipe } from '@angular/common';
-import { DeleteNoteDialogComponent } from '../../delete-note-dialog/delete-note-dialog.component';
 
 @Component({
     selector: 'spartan-note-card',
@@ -41,7 +40,6 @@ import { DeleteNoteDialogComponent } from '../../delete-note-dialog/delete-note-
         HlmMenuItemDirective,
         HlmMenuBarItemDirective,
         SlicePipe,
-        DeleteNoteDialogComponent,
     ],
     providers: [
         provideIcons({ lucideEllipsisVertical, lucideTrash2, lucidePen }),
