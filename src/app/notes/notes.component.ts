@@ -10,6 +10,8 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { lucidePlus } from '@ng-icons/lucide';
 import { NewNoteDialogComponent } from './new-note-dialog/new-note-dialog.component';
+import { toast } from 'ngx-sonner';
+import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
 
 @Component({
     selector: 'spartan-notes',
@@ -21,6 +23,7 @@ import { NewNoteDialogComponent } from './new-note-dialog/new-note-dialog.compon
         HlmButtonDirective,
         HlmIconDirective,
         NewNoteDialogComponent,
+        HlmToasterComponent,
     ],
     providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',
@@ -84,6 +87,20 @@ export class NotesComponent {
 
     // Handle the noteCreatedSuccessfully event
     onNoteCreated() {
+        toast.success('Note created successfully!', {
+            description: 'Your note has been created.',
+            duration: 3000,
+            action: {
+                label: 'Close',
+                onClick: () => {
+                    toast.dismiss();
+                },
+            },
+            style: {
+                backgroundColor: '#1e293b',
+                color: '#ffffff',
+            },
+        });
         // Refresh notes list when a new note is created
         this.isLoading = true;
         this.notesService.getNotesByUserId(this.userId).subscribe({
