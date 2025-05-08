@@ -27,7 +27,7 @@ import { NotesService } from '../notes.service';
     ],
     templateUrl: './delete-dialog.component.html',
 })
-export class DeleteNoteDialogComponent {
+export class DeleteDialogComponent {
     @Input() dialogState: 'open' | 'closed' = 'closed';
     @Output() noteDeleted: EventEmitter<void> = new EventEmitter<void>();
     noteId: number = 0;

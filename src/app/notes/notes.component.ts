@@ -12,7 +12,7 @@ import { lucidePlus } from '@ng-icons/lucide';
 import { NewNoteDialogComponent } from './new-note-dialog/new-note-dialog.component';
 import { toast } from 'ngx-sonner';
 import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
-import { DeleteNoteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @Component({
     selector: 'spartan-notes',
@@ -25,7 +25,7 @@ import { DeleteNoteDialogComponent } from './delete-dialog/delete-dialog.compone
         HlmIconDirective,
         NewNoteDialogComponent,
         HlmToasterComponent,
-        DeleteNoteDialogComponent,
+        DeleteDialogComponent,
     ],
     providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',
@@ -41,8 +41,8 @@ export class NotesComponent {
     isLoading: boolean = true;
 
     @ViewChild(NewNoteDialogComponent) newNoteDialog!: NewNoteDialogComponent;
-    @ViewChild(DeleteNoteDialogComponent)
-    deleteNoteDialog!: DeleteNoteDialogComponent;
+    @ViewChild(DeleteDialogComponent)
+    deleteNoteDialog!: DeleteDialogComponent;
 
     constructor(private notesService: NotesService) {
         const userToken: string = localStorage.getItem('auth_token') || '';
