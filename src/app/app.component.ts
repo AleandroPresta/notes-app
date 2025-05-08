@@ -24,8 +24,4 @@ export class AppComponent {
         this.componentToShow = 'notes';
         this.userEmail = userEmail;
     }
-
-    public throwTestError(): void {
-        throw new Error('Sentry Test Error');
-    }
 }

@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, map, of, Observable } from 'rxjs';
 import { UserInfo } from './UserInfo';
 import { Note } from './Note';
+import * as Sentry from '@sentry/angular';
 
 interface AuthResponse {
     id?: number;
@@ -44,6 +45,14 @@ export class NotesService {
                 }),
                 catchError((error) => {
                     console.error('Error fetching user ID:', error);
+                    Sentry.captureException(error, {
+                        tags: {
+                            operation: 'getUserInfo',
+                        },
+                        extra: {
+                            endpoint: `${this.USER_API_URL}/auth/me`,
+                        },
+                    });
                     return of(null);
                 })
             );
@@ -68,6 +77,15 @@ export class NotesService {
                 }),
                 catchError((error) => {
                     console.error('Error fetching notes:', error);
+                    Sentry.captureException(error, {
+                        tags: {
+                            operation: 'getNotesByUserId',
+                        },
+                        extra: {
+                            userId: userId,
+                            endpoint: `${this.NOTES_API_URL}/note?user_id=${userId}`,
+                        },
+                    });
                     return of([]); // Return an empty array on error
                 })
             );
@@ -86,6 +104,70 @@ export class NotesService {
                 }),
                 catchError((error) => {
                     console.error('Error creating note:', error);
+                    Sentry.captureException(error, {
+                        tags: {
+                            operation: 'createNote',
+                        },
+                        extra: {
+                            note: noteToSave,
+                            endpoint: `${this.NOTES_API_URL}/note`,
+                        },
+                    });
+                    return of(null); // Return null on error
+                })
+            );
+    }
+
+    deleteNote(noteId: number): Observable<any> {
+        return this.http
+            .delete<any>(`${this.NOTES_API_URL}/note/${noteId}`)
+            .pipe(
+                map((response) => {
+                    if (response) {
+                        return response;
+                    } else {
+                        return null;
+                    }
+                }),
+                catchError((error) => {
+                    console.error('Error deleting note:', error);
+                    Sentry.captureException(error, {
+                        tags: {
+                            operation: 'deleteNote',
+                        },
+                        extra: {
+                            noteId: noteId,
+                            endpoint: `${this.NOTES_API_URL}/note/${noteId}`,
+                        },
+                    });
+                    return of(null); // Return null on error
+                })
+            );
+    }
+
+    updateNote(noteId: number, updatedNote: Note): Observable<any> {
+        return this.http
+            .put<any>(`${this.NOTES_API_URL}/note/${noteId}`, updatedNote)
+            .pipe(
+                map((response) => {
+                    if (response) {
+                        return response;
+                    } else {
+                        return null;
+                    }
+                }),
+                catchError((error) => {
+                    console.error('Error updating note:', error);
+                    Sentry.captureException(error, {
+                        tags: {
+                            operation: 'updateNote',
+                        },
+                        extra: {
+                            noteId: noteId,
+                            updatedNote: updatedNote,
+                            endpoint: `${this.NOTES_API_URL}/note/${noteId}`,
+                        },
+                    });
                     return of(null); // Return null on error
                 })
             );

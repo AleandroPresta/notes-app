@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
+import * as Sentry from '@sentry/angular';
 
 interface AuthResponse {
     authToken?: string;
@@ -31,7 +32,18 @@ export class LoginService {
                     }
                     return false;
                 }),
-                catchError(() => {
+                catchError((error) => {
+                    // Capture authentication errors with Sentry
+                    console.error('Authentication error:', error);
+                    Sentry.captureException(error, {
+                        tags: {
+                            operation: 'userLogin',
+                        },
+                        extra: {
+                            email: email,
+                            endpoint: `${this.API_URL}/auth/login`,
+                        },
+                    });
                     // Handle errors, returning false in case of failure
                     return of(false);
                 })
