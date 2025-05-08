@@ -1,4 +1,8 @@
-<spartan-dialog-new-note [userId]="userId"></spartan-dialog-new-note>
+<spartan-dialog-new-note
+    [userId]="userId"
+    (noteCreatedSuccessfully)="onNoteCreated()"
+>
+</spartan-dialog-new-note>
 
 <app-navbar
     [userEmail]="userEmail"

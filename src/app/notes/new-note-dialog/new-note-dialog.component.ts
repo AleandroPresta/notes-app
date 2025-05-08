@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnDialogContentDirective } from '@spartan-ng/brain/dialog';
 import {
@@ -43,6 +43,8 @@ export class NewNoteDialogComponent {
     note: Note = { title: '', content: '' };
     isNoteInvalid: boolean = false;
     errorMessage: string = 'Please fill in all fields.';
+    @Output() noteCreatedSuccessfully: EventEmitter<void> =
+        new EventEmitter<void>();
 
     constructor(private notesService: NotesService) {}
 
@@ -76,7 +78,7 @@ export class NewNoteDialogComponent {
 
             this.notesService.createNote(noteToSave).subscribe(
                 (next) => {
-                    console.log('Note created successfully:', next);
+                    this.noteCreatedSuccessfully.emit();
                     // Handle success, e.g., close the dialog or show a success message
                 },
                 (error) => {

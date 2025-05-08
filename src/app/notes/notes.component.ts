@@ -37,7 +37,7 @@ export class NotesComponent {
 
     @ViewChild(NewNoteDialogComponent) newNoteDialog!: NewNoteDialogComponent;
 
-    constructor(notesService: NotesService) {
+    constructor(private notesService: NotesService) {
         const userToken: string = localStorage.getItem('auth_token') || '';
 
         this.isLoading = true;
@@ -80,5 +80,21 @@ export class NotesComponent {
     // Method to open the new note dialog
     openAddNewNoteModal() {
         this.newNoteDialog.openDialog();
+    }
+
+    // Handle the noteCreatedSuccessfully event
+    onNoteCreated() {
+        // Refresh notes list when a new note is created
+        this.isLoading = true;
+        this.notesService.getNotesByUserId(this.userId).subscribe({
+            next: (notes) => {
+                this.notes = notes;
+                this.isLoading = false;
+            },
+            error: (error) => {
+                console.error('Error fetching notes:', error);
+                this.isLoading = false;
+            },
+        });
     }
 }
