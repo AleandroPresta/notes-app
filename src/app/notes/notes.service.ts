@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { PLATFORM_ID, inject, Injectable } from '@angular/core';
 import { catchError, map, of, Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 import { UserInfo } from './UserInfo';
 import { Note } from './Note';
 import * as Sentry from '@sentry/angular';
@@ -15,10 +16,20 @@ interface AuthResponse {
     providedIn: 'root',
 })
 export class NotesService {
+    private platformId = inject(PLATFORM_ID);
+
     constructor(private http: HttpClient) {}
 
     USER_API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:Y6FZ87f5`;
     NOTES_API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:lJojGs4r`;
+
+    // Safe method to get auth token that works in both browser and server environments
+    private getAuthToken(): string {
+        if (isPlatformBrowser(this.platformId)) {
+            return localStorage.getItem('auth_token') || '';
+        }
+        return ''; // Empty token for SSR
+    }
 
     getUserInfo(userToken: string): Observable<UserInfo | null> {
         return this.http
@@ -62,9 +73,7 @@ export class NotesService {
         return this.http
             .get<any[]>(`${this.NOTES_API_URL}/note?user_id=${userId}`, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem(
-                        'auth_token'
-                    )}`,
+                    Authorization: `Bearer ${this.getAuthToken()}`,
                 },
             })
             .pipe(
