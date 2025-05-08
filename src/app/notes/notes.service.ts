@@ -108,4 +108,22 @@ export class NotesService {
                 })
             );
     }
+
+    updateNote(noteId: number, updatedNote: Note): Observable<any> {
+        return this.http
+            .post<any>(`${this.NOTES_API_URL}/note/${noteId}`, updatedNote)
+            .pipe(
+                map((response) => {
+                    if (response) {
+                        return response;
+                    } else {
+                        return null;
+                    }
+                }),
+                catchError((error) => {
+                    console.error('Error updating note:', error);
+                    return of(null); // Return null on error
+                })
+            );
+    }
 }
