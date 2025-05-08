@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Note } from '../Note';
 import { NgFor } from '@angular/common';
 import { NoteCardComponent } from './note-card/note-card.component';
@@ -11,4 +11,15 @@ import { NoteCardComponent } from './note-card/note-card.component';
 })
 export class NotesListComponent {
     @Input() notes: Note[] = [];
+    @Output() openNoteDeletionDialog: EventEmitter<number> =
+        new EventEmitter<number>();
+
+    onOpenNoteDeletionDialog(noteId: number | undefined): void {
+        if (noteId === undefined) {
+            console.error('Note ID is undefined');
+            return;
+        }
+        // Emit the note ID to the parent component
+        this.openNoteDeletionDialog.emit(noteId);
+    }
 }

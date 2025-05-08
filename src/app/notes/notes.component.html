@@ -33,7 +33,10 @@
         <spartan-note-skeleton></spartan-note-skeleton>
     </div>
     } @else {
-    <app-notes-list [notes]="notes"></app-notes-list>
+    <app-notes-list
+        [notes]="notes"
+        (openNoteDeletionDialog)="onOpenNoteDeletionDialog($event)"
+    ></app-notes-list>
     }
 </div>
 

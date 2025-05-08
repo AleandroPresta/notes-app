@@ -114,4 +114,8 @@ export class NotesComponent {
             },
         });
     }
+
+    onOpenNoteDeletionDialog(event: any): void {
+        console.log('Event: ', event);
+    }
 }
