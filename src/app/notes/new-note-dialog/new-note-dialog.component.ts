@@ -74,8 +74,6 @@ export class NewNoteDialogComponent {
                 content: this.note.content,
             };
 
-            console.log('Note to save:', noteToSave);
-
             this.notesService.createNote(noteToSave).subscribe({
                 next: (response) => {
                     console.log('Note created successfully:', response);
