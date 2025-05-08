@@ -1,5 +1,12 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+    APP_INITIALIZER,
+    ApplicationConfig,
+    ErrorHandler,
+    provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { Router } from '@angular/router';
+import * as Sentry from '@sentry/angular';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -15,5 +22,19 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         provideClientHydration(),
         provideHttpClient(withFetch()),
+        {
+            provide: ErrorHandler,
+            useValue: Sentry.createErrorHandler(),
+        },
+        {
+            provide: Sentry.TraceService,
+            deps: [Router],
+        },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: () => () => {},
+            deps: [Sentry.TraceService],
+            multi: true,
+        },
     ],
 };
