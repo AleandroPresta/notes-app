@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Note } from '../../Notes';
+import { Note } from '../../Note';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -51,7 +51,7 @@ import { SlicePipe } from '@angular/common';
 })
 export class NoteCardComponent {
     @Input() note: Note = {
-        id: 0,
+        user_id: 0,
         title: '',
         content: '',
     };

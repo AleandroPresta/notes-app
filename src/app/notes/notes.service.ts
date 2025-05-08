@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, of, Observable } from 'rxjs';
 import { UserInfo } from './UserInfo';
+import { Note } from './Note';
 
 interface AuthResponse {
     id?: number;
@@ -13,8 +14,7 @@ interface AuthResponse {
     providedIn: 'root',
 })
 export class NotesService {
-    private http = inject(HttpClient);
-    constructor() {}
+    constructor(private http: HttpClient) {}
 
     USER_API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:Y6FZ87f5`;
     NOTES_API_URL = `https://x8ki-letl-twmt.n7.xano.io/api:lJojGs4r`;
@@ -69,6 +69,24 @@ export class NotesService {
                 catchError((error) => {
                     console.error('Error fetching notes:', error);
                     return of([]); // Return an empty array on error
+                })
+            );
+    }
+
+    createNote(noteToSave: Note): Observable<any> {
+        return this.http
+            .post<any>(`${this.NOTES_API_URL}/note`, noteToSave)
+            .pipe(
+                map((response) => {
+                    if (response) {
+                        return response;
+                    } else {
+                        return null;
+                    }
+                }),
+                catchError((error) => {
+                    console.error('Error creating note:', error);
+                    return of(null); // Return null on error
                 })
             );
     }
