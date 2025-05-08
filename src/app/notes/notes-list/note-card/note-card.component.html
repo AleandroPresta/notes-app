@@ -16,8 +16,22 @@
 
         <ng-template #options>
             <hlm-menu variant="menubar">
-                <button inset hlmMenuItem (click)="modifyNote()">Modify</button>
-                <button inset hlmMenuItem (click)="deleteNote()">Delete</button>
+                <button
+                    hlmMenuItem
+                    (click)="modifyNote()"
+                    class="flex flex-row gap-5 items-center"
+                >
+                    <ng-icon hlm name="lucidePen" hlmMenuIcon />
+                    <span>Modify</span>
+                </button>
+                <button
+                    hlmMenuItem
+                    (click)="deleteNote()"
+                    class="flex flex-row gap-5 items-center"
+                >
+                    <ng-icon hlm name="lucideTrash2" hlmMenuIcon />
+                    <span>Delete</span>
+                </button>
             </hlm-menu>
         </ng-template>
     </div>
