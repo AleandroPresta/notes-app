@@ -204,3 +204,6 @@ select {
     @apply border-solid border-[hsl(var(--border))];
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

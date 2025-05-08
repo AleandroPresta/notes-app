@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NotesComponent } from './notes.component';
 import { NotesService } from './notes.service';
 import { of } from 'rxjs';
@@ -23,7 +22,7 @@ describe('NotesComponent', () => {
         );
 
         await TestBed.configureTestingModule({
-            imports: [NotesComponent, HttpClientTestingModule],
+            imports: [NotesComponent], // Removed HttpClientTestingModule
             providers: [{ provide: NotesService, useValue: mockNotesService }],
         }).compileComponents();
 
