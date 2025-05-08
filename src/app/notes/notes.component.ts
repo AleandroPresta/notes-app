@@ -30,6 +30,7 @@ export class NotesComponent {
     @Input() userEmail: string = '';
     userFirstName: string = '';
     userLastName: string = '';
+    userId: number = 0;
 
     notes: Note[] = [];
     isLoading: boolean = true;
@@ -51,6 +52,7 @@ export class NotesComponent {
                     // Set user first and last name
                     this.userFirstName = userInfo.getFirstName();
                     this.userLastName = userInfo.getLastName();
+                    this.userId = userInfo.getId();
 
                     // Get notes by user ID
                     notesService.getNotesByUserId(userInfo.getId()).subscribe({

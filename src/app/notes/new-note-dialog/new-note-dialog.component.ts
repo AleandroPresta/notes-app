@@ -13,10 +13,11 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Note } from '../Note';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
-import { AlertDestructiveComponent } from '../../spartan-alert-destructive/spartan-alert-destructive.component';
+import { SpartanAlertDestructiveComponent } from '../../spartan-alert-destructive/spartan-alert-destructive.component';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
+import { NotesService } from '../notes.service';
 
 @Component({
     selector: 'spartan-dialog-new-note',
@@ -32,15 +33,18 @@ import { lucideTriangleAlert } from '@ng-icons/lucide';
         HlmInputDirective,
         HlmButtonDirective,
         HlmFormFieldModule,
-        AlertDestructiveComponent,
+        SpartanAlertDestructiveComponent,
     ],
     templateUrl: './new-note-dialog.component.html',
 })
 export class NewNoteDialogComponent {
     @Input() dialogState: 'open' | 'closed' = 'closed';
+    @Input() userId: number = 0;
     note: Note = { title: '', content: '' };
     isNoteInvalid: boolean = false;
     errorMessage: string = 'Please fill in all fields.';
+
+    constructor(private notesService: NotesService) {}
 
     openDialog() {
         this.dialogState = 'open';
@@ -55,8 +59,32 @@ export class NewNoteDialogComponent {
     onSubmit(form: NgForm) {
         if (form.valid) {
             this.isNoteInvalid = false;
-            console.log('Form submitted:', this.note);
-            // Handle form submission logic here
+
+            if (this.userId === 0) {
+                console.error('User ID is not set.');
+                this.isNoteInvalid = true;
+                return;
+            }
+            // Save the note using the NotesService
+            const noteToSave: Note = {
+                user_id: this.userId,
+                title: this.note.title,
+                content: this.note.content,
+            };
+
+            console.log('Note to save:', noteToSave);
+
+            this.notesService.createNote(noteToSave).subscribe(
+                (next) => {
+                    console.log('Note created successfully:', next);
+                    // Handle success, e.g., close the dialog or show a success message
+                },
+                (error) => {
+                    console.error('Error creating note:', error);
+                    // Handle error, e.g., show an error message
+                }
+            );
+            // Handle resetting the form and closing the dialog
             this.onDialogClose();
             this.note = { title: '', content: '' }; // Reset the note object
         } else {

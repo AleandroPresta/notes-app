@@ -23,6 +23,6 @@ import { lucideTriangleAlert } from '@ng-icons/lucide';
     providers: [provideIcons({ lucideTriangleAlert })],
     templateUrl: './spartan-alert-destructive.component.html',
 })
-export class AlertDestructiveComponent {
+export class SpartanAlertDestructiveComponent {
     @Input() errorMessage: string = 'Error!';
 }
