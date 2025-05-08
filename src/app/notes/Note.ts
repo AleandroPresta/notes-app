@@ -1,11 +1,11 @@
 export class Note {
-    id: number;
+    user_id?: number;
     title: string;
     content: string;
 
-    constructor(id: number, title: string, content: string) {
-        this.id = id;
+    constructor(title: string, content: string, userId?: number) {
         this.title = title;
         this.content = content;
+        this.user_id = userId;
     }
 }
