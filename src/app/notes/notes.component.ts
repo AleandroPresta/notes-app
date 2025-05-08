@@ -12,6 +12,7 @@ import { lucidePlus } from '@ng-icons/lucide';
 import { NewNoteDialogComponent } from './new-note-dialog/new-note-dialog.component';
 import { toast } from 'ngx-sonner';
 import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
+import { DeleteNoteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @Component({
     selector: 'spartan-notes',
@@ -24,6 +25,7 @@ import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
         HlmIconDirective,
         NewNoteDialogComponent,
         HlmToasterComponent,
+        DeleteNoteDialogComponent,
     ],
     providers: [provideIcons({ lucidePlus })],
     templateUrl: './notes.component.html',
@@ -39,6 +41,8 @@ export class NotesComponent {
     isLoading: boolean = true;
 
     @ViewChild(NewNoteDialogComponent) newNoteDialog!: NewNoteDialogComponent;
+    @ViewChild(DeleteNoteDialogComponent)
+    deleteNoteDialog!: DeleteNoteDialogComponent;
 
     constructor(private notesService: NotesService) {
         const userToken: string = localStorage.getItem('auth_token') || '';
@@ -89,6 +93,40 @@ export class NotesComponent {
     onNoteCreated() {
         toast.success('Note created successfully!', {
             description: 'Your note has been created.',
+            duration: 3000,
+            action: {
+                label: 'Close',
+                onClick: () => {
+                    toast.dismiss();
+                },
+            },
+            style: {
+                backgroundColor: '#1e293b',
+                color: '#ffffff',
+            },
+        });
+        // Refresh notes list when a new note is created
+        this.isLoading = true;
+        this.notesService.getNotesByUserId(this.userId).subscribe({
+            next: (notes) => {
+                this.notes = notes;
+                this.isLoading = false;
+            },
+            error: (error) => {
+                console.error('Error fetching notes:', error);
+                this.isLoading = false;
+            },
+        });
+    }
+
+    onOpenNoteDeletionDialog(event: any) {
+        console.log(event);
+        this.deleteNoteDialog.openDialog(event);
+    }
+
+    onDeleteNote() {
+        toast.success('Note deleted successfully!', {
+            description: 'Your note has been deleted.',
             duration: 3000,
             action: {
                 label: 'Close',

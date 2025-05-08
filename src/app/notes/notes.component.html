@@ -4,6 +4,10 @@
 >
 </spartan-dialog-new-note>
 
+<spartan-dialog-delete-note
+    (noteDeleted)="onDeleteNote()"
+></spartan-dialog-delete-note>
+
 <app-navbar
     [userEmail]="userEmail"
     [userFirstName]="userFirstName"
@@ -40,6 +44,6 @@
     }
 </div>
 
-<spartan-delete-note-dialog #deleteDialog></spartan-delete-note-dialog>
+<spartan-dialog-delete-note></spartan-dialog-delete-note>
 
 <hlm-toaster />
