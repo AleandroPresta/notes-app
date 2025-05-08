@@ -40,7 +40,7 @@ import { NotesService } from '../notes.service';
 export class NewNoteDialogComponent {
     @Input() dialogState: 'open' | 'closed' = 'closed';
     @Input() userId: number = 0;
-    note: Note = { title: '', content: '' };
+    note: Note = new Note('', '', 0);
     isNoteInvalid: boolean = false;
     errorMessage: string = 'Please fill in all fields.';
     @Output() noteCreatedSuccessfully: EventEmitter<void> =
@@ -55,7 +55,7 @@ export class NewNoteDialogComponent {
     onDialogClose() {
         this.dialogState = 'closed';
         this.isNoteInvalid = false; // Reset the error state when closing the dialog
-        this.note = { title: '', content: '' }; // Reset the note object
+        this.note = { title: '', content: '', user_id: 0 }; // Reset the note object
     }
 
     onSubmit(form: NgForm) {
@@ -76,16 +76,16 @@ export class NewNoteDialogComponent {
 
             console.log('Note to save:', noteToSave);
 
-            this.notesService.createNote(noteToSave).subscribe(
-                (next) => {
+            this.notesService.createNote(noteToSave).subscribe({
+                next: (response) => {
+                    console.log('Note created successfully:', response);
                     this.noteCreatedSuccessfully.emit();
-                    // Handle success, e.g., close the dialog or show a success message
                 },
-                (error) => {
+                error: (error) => {
                     console.error('Error creating note:', error);
-                    // Handle error, e.g., show an error message
-                }
-            );
+                    this.isNoteInvalid = true;
+                },
+            });
             // Handle resetting the form and closing the dialog
             this.onDialogClose();
             this.note = { title: '', content: '' }; // Reset the note object

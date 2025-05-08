@@ -28,6 +28,8 @@ describe('NewNoteDialogComponent', () => {
 
         fixture = TestBed.createComponent(NewNoteDialogComponent);
         component = fixture.componentInstance;
+        // Set the userId to avoid the validation error
+        component.userId = 1;
         fixture.detectChanges();
     });
 
@@ -36,13 +38,13 @@ describe('NewNoteDialogComponent', () => {
     });
 
     // Add test for note creation functionality
-    it('should call createNote when save is called', () => {
+    it('should call createNote when onSubmit is called', () => {
         // Setup
         component.note = {
             title: 'Test Note',
             content: 'Test Content',
-            user_id: 1,
         };
+        component.userId = 1; // Ensure userId is set
 
         // Call the method
         component.onSubmit({
@@ -50,11 +52,37 @@ describe('NewNoteDialogComponent', () => {
             value: {
                 title: 'Test Note',
                 content: 'Test Content',
-                user_id: 1,
             },
         } as any);
 
         // Assert
-        expect(mockNotesService.createNote).toHaveBeenCalled();
+        expect(mockNotesService.createNote).toHaveBeenCalledWith({
+            title: 'Test Note',
+            content: 'Test Content',
+            user_id: 1,
+        });
+    });
+
+    // Add test for validation check
+    it('should not call createNote when userId is 0', () => {
+        // Setup
+        component.note = {
+            title: 'Test Note',
+            content: 'Test Content',
+        };
+        component.userId = 0; // Explicitly set userId to 0
+
+        // Call the method
+        component.onSubmit({
+            valid: true,
+            value: {
+                title: 'Test Note',
+                content: 'Test Content',
+            },
+        } as any);
+
+        // Assert
+        expect(mockNotesService.createNote).not.toHaveBeenCalled();
+        expect(component.isNoteInvalid).toBeTrue();
     });
 });
