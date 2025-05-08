@@ -58,14 +58,16 @@ export class NoteCardComponent {
     @Output() openNoteDeletionDialog: EventEmitter<number> =
         new EventEmitter<number>();
 
+    @Output() openNoteModificationDialog: EventEmitter<Note> =
+        new EventEmitter<Note>();
+
     constructor() {}
 
-    onOpenModifyNoteDialog() {
+    onOpenDeleteNoteDialog() {
         this.openNoteDeletionDialog.emit(this.note.id);
     }
 
-    modifyNote() {
-        // Logic to delete the note
-        console.log('Delete note:', this.note);
+    onOpenModifyNoteDialog() {
+        this.openNoteModificationDialog.emit(this.note);
     }
 }

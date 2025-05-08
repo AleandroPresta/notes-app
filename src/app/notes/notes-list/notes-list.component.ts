@@ -13,6 +13,8 @@ export class NotesListComponent {
     @Input() notes: Note[] = [];
     @Output() openNoteDeletionDialog: EventEmitter<number> =
         new EventEmitter<number>();
+    @Output() openNoteModificationDialog: EventEmitter<Note> =
+        new EventEmitter<Note>();
 
     onOpenNoteDeletionDialog(noteId: number | undefined): void {
         if (noteId === undefined) {
@@ -21,5 +23,10 @@ export class NotesListComponent {
         }
         // Emit the note ID to the parent component
         this.openNoteDeletionDialog.emit(noteId);
+    }
+
+    onOpenNoteModificationDialog(note: Note): void {
+        // Emit the note to the parent component
+        this.openNoteModificationDialog.emit(note);
     }
 }

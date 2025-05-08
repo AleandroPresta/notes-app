@@ -4,6 +4,7 @@
     @for (note of notes; track note) {
     <spartan-note-card
         (openNoteDeletionDialog)="onOpenNoteDeletionDialog(note.id)"
+        (openNoteModificationDialog)="onOpenNoteModificationDialog(note)"
         [note]="note"
     ></spartan-note-card>
     }
