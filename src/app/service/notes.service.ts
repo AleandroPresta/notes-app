@@ -8,6 +8,7 @@ interface AuthResponse {
     id?: number;
     first_name?: string;
     last_name?: string;
+    profile_image_url?: string;
 }
 
 @Injectable({
@@ -31,12 +32,14 @@ export class NotesService {
                     if (
                         response.id &&
                         response.first_name &&
-                        response.last_name
+                        response.last_name &&
+                        response.profile_image_url
                     ) {
                         return new UserInfo(
                             response.id,
                             response.first_name,
-                            response.last_name
+                            response.last_name,
+                            response.profile_image_url
                         );
                     } else {
                         return null;

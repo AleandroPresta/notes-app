@@ -53,9 +53,10 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
     styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-    @Input() userEmail: string = '';
-    @Input() userFirstName: string = '';
-    @Input() userLastName: string = '';
+    @Input() email: string = '';
+    @Input() firstName: string = '';
+    @Input() lastName: string = '';
+    @Input() profileImageUrl: string = '';
 
     @Output() addNote = new EventEmitter<void>();
 

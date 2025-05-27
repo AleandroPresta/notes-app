@@ -18,12 +18,12 @@ import { ModifyNoteDialogComponent } from './modify-note-dialog/modify-note-dial
 @Component({
     selector: 'spartan-notes',
     imports: [
-        NotesListComponent,
+        // NotesListComponent,
         NavbarComponent,
-        NotesSkeletonComponent,
-        NgIcon,
-        HlmButtonDirective,
-        HlmIconDirective,
+        // NotesSkeletonComponent,
+        // NgIcon,
+        // HlmButtonDirective,
+        // HlmIconDirective,
         NewNoteDialogComponent,
         HlmToasterComponent,
         DeleteDialogComponent,
@@ -34,9 +34,10 @@ import { ModifyNoteDialogComponent } from './modify-note-dialog/modify-note-dial
     styleUrl: './notes.component.css',
 })
 export class NotesComponent {
-    @Input() userEmail: string = '';
-    userFirstName: string = '';
-    userLastName: string = '';
+    @Input() email: string = '';
+    firstName: string = '';
+    lastName: string = '';
+    profileImageUrl: string = '';
     userId: number = 0;
 
     notes: Note[] = [];
@@ -60,8 +61,9 @@ export class NotesComponent {
                         return;
                     }
                     // Set user first and last name
-                    this.userFirstName = userInfo.getFirstName();
-                    this.userLastName = userInfo.getLastName();
+                    this.firstName = userInfo.getFirstName();
+                    this.lastName = userInfo.getLastName();
+                    this.profileImageUrl = userInfo.getProfileImageUrl();
                     this.userId = userInfo.getId();
 
                     // Get notes by user ID

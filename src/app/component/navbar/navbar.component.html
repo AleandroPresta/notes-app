@@ -3,7 +3,7 @@
         <div
             class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
             style="
-                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAvi_MPKavi8jjH3JjOsw_K4xF5yjfHiA0nd8juQzo-en0OHR1AM9a5Refe0rc3NFy1wQPuI0xrDUMGGTv7J2lWf_dibDrxK1iCEN9WtSabTweuZWMqcl-_rBopcmImm-Epkldovij4GlHG7Wh-oufipAHuH9c6iz2fXvrtAzP2tFHExR9_OjorAZp-jhp-DmU2oubXzxsrrCT9SnDychEHdw1a-pSCsd9MiZH8n3NyPdFcO71IkmANzL0eag8vqxRn38VPR8a5ahA');
+                background-image: url('{{ profileImageUrl }}');
             "
         ></div>
     </div>
@@ -14,6 +14,7 @@
     </h2>
     <div class="flex w-12 items-center justify-end">
         <button
+            (click)="openAddNewNoteModal()"
             class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-transparent text-[#0d141c] gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
         >
             <div
