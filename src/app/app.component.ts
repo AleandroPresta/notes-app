@@ -14,7 +14,7 @@ import { FooterComponent } from './component/footer/footer.component';
 export class AppComponent {
     title = 'notes-app';
 
-    componentToShow = 'auth'; // auth in production
+    componentToShow = 'notes'; // auth in production
     userEmail = '';
 
     constructor() {}
