@@ -37,7 +37,7 @@ import {
 export class AuthComponent {
     @Output() loginSuccessful = new EventEmitter<string>();
 
-    handleSuccessfulLoginEvent(userEmail: string) {
-        this.loginSuccessful.emit(userEmail);
+    handleSuccessfulLoginEvent(email: string) {
+        this.loginSuccessful.emit(email);
     }
 }

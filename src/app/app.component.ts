@@ -14,14 +14,14 @@ import { FooterComponent } from './component/footer/footer.component';
 export class AppComponent {
     title = 'notes-app';
 
-    componentToShow = 'notes'; // auth in production
-    userEmail = '';
+    componentToShow = 'auth'; // auth in production
+    email = '';
 
     constructor() {}
 
-    handleSuccessfulLoginEvent(userEmail: string) {
+    handleSuccessfulLoginEvent(email: string) {
         // Manage login success
         this.componentToShow = 'notes';
-        this.userEmail = userEmail;
+        this.email = email;
     }
 }

@@ -69,8 +69,8 @@ export class LoginFormComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private loginService: LoginService) {
         this.loginForm = this.fb.group({
-            userEmail: ['', Validators.required],
-            userPassword: ['', Validators.required],
+            email: ['', Validators.required],
+            password: ['', Validators.required],
         });
     }
 
@@ -78,8 +78,8 @@ export class LoginFormComponent implements OnInit {
         // Reset all form errors at the beginning of each submission
         this.loginForm.markAsPristine();
         this.loginForm.markAsUntouched();
-        const emailControl = this.loginForm.get('userEmail');
-        const passwordControl = this.loginForm.get('userPassword');
+        const emailControl = this.loginForm.get('email');
+        const passwordControl = this.loginForm.get('password');
 
         if (emailControl) emailControl.setErrors(null);
         if (passwordControl) passwordControl.setErrors(null);
@@ -88,8 +88,8 @@ export class LoginFormComponent implements OnInit {
             this.isLoading.set(true);
 
             // Try to login with the service
-            const email = this.loginForm.get('userEmail')?.value;
-            const password = this.loginForm.get('userPassword')?.value;
+            const email = this.loginForm.get('email')?.value;
+            const password = this.loginForm.get('password')?.value;
 
             // Subscribe to the Observable returned by loginIsSuccessful
             this.loginIsSuccessful(email, password).subscribe({
@@ -97,7 +97,6 @@ export class LoginFormComponent implements OnInit {
                     if (isSuccessful) {
                         // If login is successful, emit success event with the email
                         this.loginSuccess.emit(email);
-                        console.log('Login successful:', email);
                     } else {
                         this.loginForm?.setErrors({ invalidCredentials: true });
                     }
@@ -116,7 +115,7 @@ export class LoginFormComponent implements OnInit {
 
     isEmailValid(): boolean {
         // Check if the email is valid
-        const emailControl = this.loginForm.get('userEmail');
+        const emailControl = this.loginForm.get('email');
         try {
             EmailValidator.isValid(emailControl?.value);
         } catch (error) {
@@ -136,7 +135,7 @@ export class LoginFormComponent implements OnInit {
 
     isPasswordValid(): boolean {
         // Check if the password is valid
-        const passwordControl = this.loginForm.get('userPassword');
+        const passwordControl = this.loginForm.get('password');
         try {
             PasswordValidator.isValid(passwordControl?.value);
         } catch (error) {

@@ -66,6 +66,8 @@ export class NotesComponent {
                     this.profileImageUrl = userInfo.getProfileImageUrl();
                     this.userId = userInfo.getId();
 
+                    console.log(this.profileImageUrl);
+
                     // Get notes by user ID
                     notesService.getNotesByUserId(userInfo.getId()).subscribe({
                         next: (notes) => {

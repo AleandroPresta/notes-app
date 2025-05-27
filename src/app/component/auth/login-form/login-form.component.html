@@ -16,14 +16,14 @@
                     id="email"
                     placeholder="name@example.com"
                     autocomplete="off"
-                    formControlName="userEmail"
+                    formControlName="email"
                 />
                 <hlm-error>
-                    @if (loginForm.get('userEmail')?.hasError('required')) {
-                    Email is required } @else if
-                    (loginForm.get('userEmail')?.hasError('invalidEmail')) {
-                    Please enter a valid email address } @else if
-                    (loginForm.get('userEmail')?.hasError('genericError')) { An
+                    @if (loginForm.get('email')?.hasError('required')) { Email
+                    is required } @else if
+                    (loginForm.get('email')?.hasError('invalidEmail')) { Please
+                    enter a valid email address } @else if
+                    (loginForm.get('email')?.hasError('genericError')) { An
                     error occurred while validating your email } @else { Email
                     is invalid }
                 </hlm-error>
@@ -40,15 +40,15 @@
                     id="password"
                     placeholder="*********"
                     autocomplete="off"
-                    formControlName="userPassword"
+                    formControlName="password"
                 />
                 <hlm-error>
-                    @if (loginForm.get('userPassword')?.hasError('required')) {
+                    @if (loginForm.get('password')?.hasError('required')) {
                     Password is required } @else if
-                    (loginForm.get('userPassword')?.hasError('invalidPassword'))
-                    { Please enter a valid password } @else if
-                    (loginForm.get('userPassword')?.hasError('genericError')) {
-                    An error occurred while validating your password }
+                    (loginForm.get('password')?.hasError('invalidPassword')) {
+                    Please enter a valid password } @else if
+                    (loginForm.get('password')?.hasError('genericError')) { An
+                    error occurred while validating your password }
                 </hlm-error>
             </hlm-form-field>
 
