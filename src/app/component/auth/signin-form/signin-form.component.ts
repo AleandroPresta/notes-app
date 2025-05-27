@@ -7,7 +7,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { toast } from 'ngx-sonner';
-import { HlmToasterComponent } from '../../../../libs/ui/ui-sonner-helm/src/lib/hlm-toaster.component';
+import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 
 @Component({

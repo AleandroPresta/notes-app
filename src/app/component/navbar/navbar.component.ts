@@ -11,7 +11,7 @@ import {
     HlmMenuBarItemDirective,
 } from '@spartan-ng/ui-menu-helm';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { HlmMenuSeparatorComponent } from '../../../libs/ui/ui-menu-helm/src/lib/hlm-menu-separator.component';
+import { HlmMenuSeparatorComponent } from '@spartan-ng/ui-menu-helm';
 import {
     lucideCircleUserRound,
     lucideContact,

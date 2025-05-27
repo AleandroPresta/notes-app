@@ -1,10 +1,10 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { NotesService } from './notes.service';
+import { Component, Input, ViewChild } from '@angular/core';
+import { NotesService } from '../../service/notes.service';
 import { NotesListComponent } from './notes-list/notes-list.component';
-import { Note } from './Note';
+import { Note } from '../../model/note.model';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { NotesSkeletonComponent } from './notes-skeleton/notes-skeleton.component';
-import { UserInfo } from './UserInfo';
+import { UserInfo } from '../../model/userinfo.model';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ModifyNoteDialogComponent } from './modify-note-dialog.component';
 import { NotesService } from '../notes.service';
-import { Note } from '../Note';
+import { Note } from '../../model/note.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

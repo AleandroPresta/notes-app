@@ -4,7 +4,7 @@ import { NewNoteDialogComponent } from './new-note-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { NotesService } from '../notes.service';
 import { of } from 'rxjs';
-import { Note } from '../Note';
+import { Note } from '../../model/note.model';
 
 describe('NewNoteDialogComponent', () => {
     let component: NewNoteDialogComponent;

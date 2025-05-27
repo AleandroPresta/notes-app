@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, of, Observable } from 'rxjs';
-import { UserInfo } from './UserInfo';
-import { Note } from './Note';
+import { UserInfo } from '../model/userinfo.model';
+import { Note } from '../model/note.model';
 
 interface AuthResponse {
     id?: number;

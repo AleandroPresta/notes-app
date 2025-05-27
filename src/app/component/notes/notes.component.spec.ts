@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NotesComponent } from './notes.component';
 import { NotesService } from './notes.service';
 import { of } from 'rxjs';
-import { UserInfo } from './UserInfo';
+import { UserInfo } from '../model/userinfo.model';
 
 describe('NotesComponent', () => {
     let component: NotesComponent;

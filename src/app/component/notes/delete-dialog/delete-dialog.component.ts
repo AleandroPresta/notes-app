@@ -10,7 +10,7 @@ import {
 } from '@spartan-ng/ui-dialog-helm';
 import { FormsModule } from '@angular/forms';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
-import { NotesService } from '../notes.service';
+import { NotesService } from '../../../service/notes.service';
 
 @Component({
     selector: 'spartan-dialog-delete-note',

@@ -1,33 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthComponent } from './auth.component';
-import { LoginService } from './login-form/login.service';
+import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoginFormComponent } from './login-form.component';
+import { LoginService } from '../../service/login.service';
 
 // Create a mock for LoginService
 const loginServiceMock = {
     login: jasmine
         .createSpy('login')
         .and.returnValue(of({ token: 'fake-token' })),
-    // Add any other methods used by AuthComponent
 };
 
-describe('AuthComponent', () => {
-    let component: AuthComponent;
-    let fixture: ComponentFixture<AuthComponent>;
+describe('LoginFormComponent', () => {
+    let component: LoginFormComponent;
+    let fixture: ComponentFixture<LoginFormComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                // Import the standalone component
-                AuthComponent,
-                // Include HttpClientTestingModule for HttpClient
-                HttpClientTestingModule,
+                // Import the standalone component instead of declaring it
+                LoginFormComponent,
+                ReactiveFormsModule,
             ],
             providers: [{ provide: LoginService, useValue: loginServiceMock }],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(AuthComponent);
+        fixture = TestBed.createComponent(LoginFormComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -36,5 +34,5 @@ describe('AuthComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    // Additional tests for AuthComponent
+    // Additional tests for login form functionality
 });

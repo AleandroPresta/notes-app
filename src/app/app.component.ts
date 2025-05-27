@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from './component/auth/auth.component';
 import { NgIf } from '@angular/common';
-import { NotesComponent } from './notes/notes.component';
-import { FooterComponent } from './footer/footer.component';
+import { NotesComponent } from './component/notes/notes.component';
+import { FooterComponent } from './component/footer/footer.component';
 
 @Component({
     selector: 'app-root',

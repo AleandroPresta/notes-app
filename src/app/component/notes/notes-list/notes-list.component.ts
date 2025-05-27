@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Note } from '../Note';
+import { Note } from '../../../model/note.model';
 import { NgFor } from '@angular/common';
 import { NoteCardComponent } from './note-card/note-card.component';
 

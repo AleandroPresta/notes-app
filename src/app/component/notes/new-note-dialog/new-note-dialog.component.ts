@@ -11,17 +11,17 @@ import {
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Note } from '../Note';
+import { Note } from '../../../model/note.model';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 import { SpartanAlertDestructiveComponent } from '../../spartan-alert-destructive/spartan-alert-destructive.component';
-import { NotesService } from '../notes.service';
-import { CommonModule } from '@angular/common';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideTriangleAlert } from '@ng-icons/lucide';
+import { NotesService } from '../../../service/notes.service';
 
 @Component({
-    selector: 'spartan-dialog-modify-note',
-    standalone: true,
+    selector: 'spartan-dialog-new-note',
     imports: [
-        CommonModule,
         BrnDialogContentDirective,
         FormsModule,
         HlmDialogComponent,
@@ -35,62 +35,60 @@ import { CommonModule } from '@angular/common';
         HlmFormFieldModule,
         SpartanAlertDestructiveComponent,
     ],
-    templateUrl: './modify-note-dialog.component.html',
-    styleUrl: './modify-note-dialog.component.css',
+    templateUrl: './new-note-dialog.component.html',
 })
-export class ModifyNoteDialogComponent {
+export class NewNoteDialogComponent {
     @Input() dialogState: 'open' | 'closed' = 'closed';
-    @Input() noteId: number = 0;
-    note: Note = {
-        title: '',
-        content: '',
-        user_id: 0,
-    };
+    @Input() userId: number = 0;
+    note: Note = new Note('', '', 0);
     isNoteInvalid: boolean = false;
     errorMessage: string = 'Please fill in all fields.';
-    @Output() noteModifiedSuccessfully: EventEmitter<void> =
+    @Output() noteCreatedSuccessfully: EventEmitter<void> =
         new EventEmitter<void>();
 
     constructor(private notesService: NotesService) {}
 
-    openDialog(note: Note) {
-        this.noteId = note.id || 0;
-        this.note = { ...note }; // Create a copy of the note to avoid modifying the original
+    openDialog() {
         this.dialogState = 'open';
     }
 
     onDialogClose() {
         this.dialogState = 'closed';
         this.isNoteInvalid = false; // Reset the error state when closing the dialog
+        this.note = { title: '', content: '', user_id: 0 }; // Reset the note object
     }
 
     onSubmit(form: NgForm) {
         if (form.valid) {
             this.isNoteInvalid = false;
 
-            if (this.noteId === 0) {
-                console.error('Note ID is not set.');
+            if (this.userId === 0) {
+                console.error('User ID is not set.');
                 this.isNoteInvalid = true;
-                this.errorMessage = 'Note ID is not set.';
                 return;
             }
+            // Save the note using the NotesService
+            const noteToSave: Note = {
+                user_id: this.userId,
+                title: this.note.title,
+                content: this.note.content,
+            };
 
-            // Update the note using the NotesService
-            this.notesService.updateNote(this.noteId, this.note).subscribe({
+            this.notesService.createNote(noteToSave).subscribe({
                 next: (response) => {
-                    this.noteModifiedSuccessfully.emit();
-                    this.onDialogClose();
+                    console.log('Note created successfully:', response);
+                    this.noteCreatedSuccessfully.emit();
                 },
                 error: (error) => {
-                    console.error('Error updating note:', error);
+                    console.error('Error creating note:', error);
                     this.isNoteInvalid = true;
-                    this.errorMessage =
-                        'Error updating note. Please try again.';
                 },
             });
+            // Handle resetting the form and closing the dialog
+            this.onDialogClose();
+            this.note = { title: '', content: '' }; // Reset the note object
         } else {
             this.isNoteInvalid = true;
-            this.errorMessage = 'Please fill in all fields.';
         }
     }
 }

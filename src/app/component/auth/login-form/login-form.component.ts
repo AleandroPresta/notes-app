@@ -32,7 +32,7 @@ import {
     InvalidPasswordException,
     PasswordValidator,
 } from '../validators/PasswordValidator';
-import { LoginService } from './login.service';
+import { LoginService } from '../../../service/login.service';
 import { Observable } from 'rxjs';
 
 @Component({
